@@ -3,13 +3,38 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import 'fontsource-roboto';
+import {
+  BrowserView,
+  MobileView,
+  isBrowser,
+  isMobile
+} from "react-device-detect";
 
-ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById('root')
-);
+import AppMobile from './App_Mobile';
+
+
+function renderContent () {
+  if (!isMobile) {
+    ReactDOM.render(
+      <React.StrictMode>
+        <App />
+      </React.StrictMode>,
+      document.getElementById('root')
+    );
+  }
+  else {
+    ReactDOM.render(
+      <React.StrictMode>
+        <AppMobile />
+      </React.StrictMode>,
+      document.getElementById('root')
+    );
+  }
+}
+
+renderContent()
+
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
