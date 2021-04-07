@@ -5,9 +5,6 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import 'fontsource-roboto';
 import {
-  BrowserView,
-  MobileView,
-  isBrowser,
   isMobile
 } from "react-device-detect";
 

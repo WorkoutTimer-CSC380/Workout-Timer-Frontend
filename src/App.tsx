@@ -1,13 +1,12 @@
 import React from 'react';
 import './App.css';
-import MiniDrawer from './components/sidebar/MiniDrawer';
+import MiniDrawer from './components/sidebar/SideDrawer';
+import WorkoutStepper from './components/workout-stepper/WorkoutStepper'; 
 
 function App() {
   return (
     <div>
-      <h1>Hello World</h1> 
       <MiniDrawer></MiniDrawer>
-     
     </div>
   );
 }
