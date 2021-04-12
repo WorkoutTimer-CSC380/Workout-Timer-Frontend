@@ -20,6 +20,7 @@ import FitnessCenterTwoToneIcon from '@material-ui/icons/FitnessCenterTwoTone';
 import UpdateTwoToneIcon from '@material-ui/icons/UpdateTwoTone';
 import Home from './components/pages/Home';
 
+
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -152,7 +153,7 @@ function App() {
             <ListItemText primary="Home" />
           </ListItem>
           <Divider />
-          <ListItem button>
+          <ListItem button onClick={() => { alert('clicked') }}>
             <ListItemIcon>
               <FitnessCenterTwoToneIcon fontSize="large"></FitnessCenterTwoToneIcon>
             </ListItemIcon>
@@ -173,10 +174,10 @@ function App() {
       </Drawer>
       <main className={classes.content}>
         <div className={classes.toolbar} />
-            <Home></Home>
+        <Home></Home>
       </main>
     </div>
   );
 }
 
-export default App; 
+export default App;

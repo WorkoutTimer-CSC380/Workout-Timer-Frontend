@@ -1,4 +1,4 @@
-import { Typography } from '@material-ui/core';
+import { Button, Typography } from '@material-ui/core';
 import React from 'react';
 import TimerControls from '../reusables/TimerControls';
 import WorkoutStepper from '../workout-stepper/WorkoutStepper';
@@ -23,11 +23,10 @@ function Home(){
   
    
   <TimerControls></TimerControls>
-  
+  /<WorkoutStepper></WorkoutStepper>
 
  </div>
 
-//<WorkoutStepper></WorkoutStepper>
 );   
 }
 
