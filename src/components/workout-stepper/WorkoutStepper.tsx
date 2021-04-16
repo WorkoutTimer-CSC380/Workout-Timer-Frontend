@@ -159,17 +159,17 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 function getSteps() {
-  return ['Select campaign settings', 'Create an ad group', 'Create an ad'];
+  return ['Exercise Array Index 0', 'Exercise Array Index 1', 'Exercise Array Index 2'];
 }
 
 function getStepContent(step: number) {
   switch (step) {
     case 0:
-      return 'Select campaign settings...';
+      return 'Exercise Array Index 0';
     case 1:
-      return 'What is an ad group anyways?';
+      return 'Exercise Array Index 1';
     case 2:
-      return 'This is the bit I really care about!';
+      return 'Exercise Array Index 2';
     default:
       return 'Unknown step';
   }
@@ -193,21 +193,7 @@ export default function CustomizedSteppers() {
   };
 
   return (
-    <div className={classes.root}>
-      <Stepper alternativeLabel activeStep={activeStep}>
-        {steps.map((label) => (
-          <Step key={label}>
-            <StepLabel>{label}</StepLabel>
-          </Step>
-        ))}
-      </Stepper>
-      <Stepper alternativeLabel activeStep={activeStep} connector={<QontoConnector />}>
-        {steps.map((label) => (
-          <Step key={label}>
-            <StepLabel StepIconComponent={QontoStepIcon}>{label}</StepLabel>
-          </Step>
-        ))}
-      </Stepper>
+    <div className={classes.root}> 
       <Stepper alternativeLabel activeStep={activeStep} connector={<ColorlibConnector />}>
         {steps.map((label) => (
           <Step key={label}>
