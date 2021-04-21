@@ -1,6 +1,5 @@
-import './App.css';
 import TimerControls from './components/reusables/TimerControls';
-import WorkoutStepper from './components/workout-stepper/WorkoutStepper'
+import WorkoutStepper from './components/reusables/WorkoutStepper'
 
 
 function AppMobile() {

@@ -11,6 +11,7 @@ import {
 import AppMobile from './App_Mobile';
 
 
+
 function renderContent () {
   if (!isMobile) {
     ReactDOM.render(
