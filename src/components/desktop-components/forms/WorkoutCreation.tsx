@@ -7,7 +7,7 @@ import { Theme as MuiTheme } from '@rjsf/material-ui';
 const Form = withTheme(MuiTheme);
 
 const uiSchemea: UiSchema = {
-    "rounds": { 
+    "rounds": {
         "ui:emptyValue": ""
     }
 };
@@ -31,19 +31,30 @@ const schema: JSONSchema7 = {
                 type: "string",
             },
         }
-       
+
     }
 };
 
+
 function WorkoutCreation() {
+
     return (
         <div>
 
             <Form
                 schema={schema}
                 uiSchema={uiSchemea}
-                //liveValidate={true}
-                onSubmit={({ formData }) => alert(JSON.stringify(formData, null, 2))}
+                liveValidate={true}
+                // localhost:3001/workouts
+                // onSubmit={  ({ formData }) => console.log(JSON.stringify(formData, null, 2)) }
+                onSubmit={({ formData }) => fetch(
+                    'http://localhost:3001/workouts', {
+                    method: 'POST',
+                    headers: { 'Content-type': 'application/json' },
+                    body: JSON.stringify(formData, null, 2)
+                })}
+
+
             />
         </div>
 

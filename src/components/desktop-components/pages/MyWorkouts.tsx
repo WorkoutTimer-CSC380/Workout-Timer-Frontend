@@ -2,7 +2,8 @@ import React from 'react';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import ExerciseCreationButton from '../forms/ExerciseCreationModal';
 import WorkoutCreationButton from '../forms/WorkoutCreationModal';
-import { ButtonGroup, Grid, Typography } from '@material-ui/core';
+import { Button, ButtonGroup, Grid, Typography } from '@material-ui/core';
+import { plainToClass } from "class-transformer";
 
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -20,6 +21,15 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
+
+function testFunc(){
+  fetch('http://localhost:3001/workouts')
+  .then(response => response.json())
+  .then(data => console.log(data));
+}
+
+
+
 function MyWorkouts() {
   const classes = useStyles();
 
@@ -34,6 +44,10 @@ function MyWorkouts() {
       <div className={classes.root}>
         <WorkoutCreationButton></WorkoutCreationButton>
       </div>
+
+      <Button variant="contained" color="primary" className={classes.root} onClick={() => testFunc()}>
+          Fetch
+      </Button>
     </div>
   );
 }

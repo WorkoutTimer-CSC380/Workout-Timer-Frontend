@@ -132,8 +132,7 @@ function App() {
           <Typography variant="h6" noWrap>
             Workout Timer
           </Typography>
-          <IconButton color="inherit">
-            <TimerIcon></TimerIcon>
+          <IconButton color="inherit">   <TimerIcon></TimerIcon>
           </IconButton>
         </Toolbar>
       </AppBar>
@@ -187,7 +186,7 @@ function App() {
           </List>
           <Divider />
           <List>
-
+            {/* A JSX comment */}
           </List>
         </Drawer>
 

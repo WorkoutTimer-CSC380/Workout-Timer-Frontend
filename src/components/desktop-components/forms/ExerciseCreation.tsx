@@ -10,9 +10,6 @@ const Form = withTheme(MuiTheme);
 const uiSchemea: UiSchema = {
   "name": {},
   "duration": {
-    "hours": {
-      "ui:widget": "updown"
-    },
     "minutes": {
       "ui:widget": "updown"
     },
@@ -21,9 +18,6 @@ const uiSchemea: UiSchema = {
     },
   },
   "breakDuration": {
-    "hours": {
-      "ui:widget": "updown"
-    },
     "minutes": {
       "ui:widget": "updown"
     },
@@ -60,10 +54,6 @@ const schema: JSONSchema7 = {
       type: "object",
       required: ["hours", "minutes", "seconds"],
       properties: {
-        hours: {
-          type: "integer",
-          title: "hours"
-        },
         minutes: {
           type: "integer",
           title: "minutes"
@@ -80,10 +70,6 @@ const schema: JSONSchema7 = {
       description: "Enter a break duration time",
       required: ["hours", "minutes", "seconds"],
       properties: {
-        hours: {
-          type: "integer",
-          title: "hours"
-        },
         minutes: {
           type: "integer",
           title: "minutes"
@@ -100,14 +86,15 @@ const schema: JSONSchema7 = {
 
 
 function ExerciseCreation() {
+
   return (
     <div>
 
       <Form 
         schema={schema}
         uiSchema={uiSchemea}
-       //liveValidate={true}
-        onSubmit={({formData}) => alert(JSON.stringify(formData, null, 2))}
+        liveValidate={true}
+        onSubmit={({formData}) => console.log(JSON.stringify(formData, null, 2))}
       />
     </div>
 
