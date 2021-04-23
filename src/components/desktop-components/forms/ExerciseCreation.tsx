@@ -32,9 +32,6 @@ const schema: JSONSchema7 = {
   title: "Create an Exercise",
   description: "Creating an Exercise / Round",
   type: "object",
-  required: [
-    "name", "sets", "reps"
-  ],
   properties: {
     name: {
       type: "string",
@@ -52,7 +49,6 @@ const schema: JSONSchema7 = {
       title: "Duration",
       description: "Enter a duration time",
       type: "object",
-      required: ["hours", "minutes", "seconds"],
       properties: {
         minutes: {
           type: "integer",
@@ -67,7 +63,19 @@ const schema: JSONSchema7 = {
   }
 };
 
-
+function validate(formData: any, errors : any){
+   if(formData.minutes < 0){
+     errors.minutes.addError("Negative number not allowed");
+   } else if(formData.minutes > 60){
+     errors.minutes.addError("Cannot exceed 60 mintues");
+   } else if(formData.seconds < 0){
+     errors.mintues.addError("Negative number not allowed");
+   } else if(formData.seconds > 60){
+     errors.mintues.addError("Cannot exceed 60 mintues");
+   }
+   
+   return errors;
+ }
 
 function ExerciseCreation() {
 
@@ -77,16 +85,14 @@ function ExerciseCreation() {
       <Form 
         schema={schema}
         uiSchema={uiSchemea}
-        //liveValidate={true}
+        liveValidate={true}
+        validate = {validate}
         onSubmit={({formData}) => console.log(JSON.stringify(formData, null, 2))}
       />
     </div>
-
-
   );
-
-
-
 }
+
+
 
 export default ExerciseCreation
