@@ -32,6 +32,9 @@ const schema: JSONSchema7 = {
   title: "Create an Exercise",
   description: "Creating an Exercise / Round",
   type: "object",
+  required : [
+    "sets", "reps"
+  ],
   properties: {
     name: {
       type: "string",
@@ -45,10 +48,13 @@ const schema: JSONSchema7 = {
       type: "integer",
       title: "Reps"
     },
-    duration: {
+   duration: {
       title: "Duration",
       description: "Enter a duration time",
       type: "object",
+      required :[
+        "minutes", "seconds"
+      ],
       properties: {
         minutes: {
           type: "integer",
@@ -58,24 +64,39 @@ const schema: JSONSchema7 = {
           type: "integer",
           title: "seconds"
         }
-      }
-    },
+     }
+   },
   }
 };
 
 function validate(formData: any, errors : any){
-   if(formData.minutes < 0){
-     errors.minutes.addError("Negative number not allowed");
-   } else if(formData.minutes > 60){
-     errors.minutes.addError("Cannot exceed 60 mintues");
-   } else if(formData.seconds < 0){
-     errors.mintues.addError("Negative number not allowed");
-   } else if(formData.seconds > 60){
-     errors.mintues.addError("Cannot exceed 60 mintues");
-   }
-   
+   if(formData.duration.minutes < 0){
+     errors.duration.minutes.addError("Negative number not allowed");
+
+   } else if(formData.duration.minutes > 60){
+     errors.duration.minutes.addError("Cannot exceed 60 mintues");
+
+   } else if(formData.duration.seconds < 0){
+     errors.duration.seconds.addError("Negative number not allowed");
+
+   } else if(formData.duration.seconds > 60){
+     errors.duration.seconds.addError("Cannot exceed 60 mintues");
+
+   } else if(formData.sets < 0){
+    errors.sets.addError("Negative number not allowed");
+
+  } else if(formData.sets > 9999){
+    errors.sets.addError("Too many sets");
+
+  } else if(formData.reps < 0){
+    errors.reps.addError("Negative number not allowed");
+
+  } else if(formData.reps > 9999){
+    errors.reps.addError("Too many reps");
+  }
    return errors;
- }
+ 
+}
 
 function ExerciseCreation() {
 
@@ -85,7 +106,7 @@ function ExerciseCreation() {
       <Form 
         schema={schema}
         uiSchema={uiSchemea}
-        liveValidate={true}
+       // liveValidate={true}
         validate = {validate}
         onSubmit={({formData}) => console.log(JSON.stringify(formData, null, 2))}
       />
