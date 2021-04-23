@@ -64,22 +64,6 @@ const schema: JSONSchema7 = {
         }
       }
     },
-    breakDuration: {
-      type: "object",
-      title: "Break Duration",
-      description: "Enter a break duration time",
-      required: ["hours", "minutes", "seconds"],
-      properties: {
-        minutes: {
-          type: "integer",
-          title: "minutes"
-        },
-        seconds: {
-          type: "integer",
-          title: "seconds"
-        }
-      }
-    },
   }
 };
 
@@ -93,7 +77,7 @@ function ExerciseCreation() {
       <Form 
         schema={schema}
         uiSchema={uiSchemea}
-        liveValidate={true}
+        //liveValidate={true}
         onSubmit={({formData}) => console.log(JSON.stringify(formData, null, 2))}
       />
     </div>

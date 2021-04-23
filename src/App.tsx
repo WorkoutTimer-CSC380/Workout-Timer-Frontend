@@ -167,7 +167,7 @@ function App() {
             </Link>
             <Divider />
             <Link to="/my-workouts" className={classes.link}>
-              <ListItem>
+              <ListItem button>
                 <ListItemIcon>
                   <FitnessCenterTwoToneIcon fontSize="large"></FitnessCenterTwoToneIcon>
                 </ListItemIcon>

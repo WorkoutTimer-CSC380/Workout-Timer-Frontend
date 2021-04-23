@@ -1,8 +1,8 @@
 import React from 'react';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import ExerciseCreationButton from '../forms/ExerciseCreationModal';
-import WorkoutCreationButton from '../forms/WorkoutCreationModal';
-import { Button, ButtonGroup, Grid, Typography } from '@material-ui/core';
+import WorkoutCreationButton from '../forms/WorkoutCreationRoundsModal';
+import { Button, Typography } from '@material-ui/core';
 import { plainToClass } from "class-transformer";
 
 
@@ -44,10 +44,6 @@ function MyWorkouts() {
       <div className={classes.root}>
         <WorkoutCreationButton></WorkoutCreationButton>
       </div>
-
-      <Button variant="contained" color="primary" className={classes.root} onClick={() => testFunc()}>
-          Fetch
-      </Button>
     </div>
   );
 }

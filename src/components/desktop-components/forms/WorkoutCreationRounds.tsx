@@ -26,13 +26,19 @@ const schema: JSONSchema7 = {
         },
         rounds: {
             type: "array",
-            title: "Round Construction",
+            title: "List of Rounds",
             items: {
-                type: "string",
-            },
-        }
-
+                type: "array",
+                title: "Round",
+                items: {
+                    type: "string",
+                    default: "Enter a Exercise"
+                }
+            }
+        },
     }
+
+
 };
 
 
@@ -44,15 +50,15 @@ function WorkoutCreation() {
             <Form
                 schema={schema}
                 uiSchema={uiSchemea}
-                liveValidate={true}
+                //liveValidate={true}
                 // localhost:3001/workouts
-                // onSubmit={  ({ formData }) => console.log(JSON.stringify(formData, null, 2)) }
-                onSubmit={({ formData }) => fetch(
-                    'http://localhost:3001/workouts', {
-                    method: 'POST',
-                    headers: { 'Content-type': 'application/json' },
-                    body: JSON.stringify(formData, null, 2)
-                })}
+                onSubmit={({ formData }) => console.log(JSON.stringify(formData, null, 2))}
+            /*      onSubmit={({ formData }) => fetch(
+                     'http://localhost:3001/workouts', {
+                     method: 'POST',
+                     headers: { 'Content-type': 'application/json' },
+                     body: JSON.stringify(formData, null, 2)
+                 })} */
 
 
             />
