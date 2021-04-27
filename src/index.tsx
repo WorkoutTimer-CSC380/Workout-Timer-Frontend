@@ -8,7 +8,7 @@ import {
   isMobile
 } from "react-device-detect";
 
-import AppMobile from './App_Mobile';
+import AppMobile from './components/MobileTimerControls/App_Mobile';
 
 
 
