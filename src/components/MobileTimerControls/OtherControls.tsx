@@ -6,13 +6,13 @@ import StopRoundedIcon from '@material-ui/icons/StopRounded';
 import RedoRoundedIcon from '@material-ui/icons/RedoRounded';
 import { Grid } from '@material-ui/core';
 
-function OtherControls(){
-  return(
-       <div>
-        <Grid container direction="row" justify="center" alignItems="center">
+function OtherControls() {
+  return (
+    <div>
+      <Grid container direction="row" justify="center" alignItems="center">
         <ButtonGroup size="large" color="primary" aria-label="play-pause button group">
           <IconButton className="btn-other-controls">
-            <FastRewindRoundedIcon 
+            <FastRewindRoundedIcon
               fontSize="large"
               color="primary">
             </FastRewindRoundedIcon>
@@ -28,16 +28,16 @@ function OtherControls(){
               fontSize="large"
               color="primary">
             </RedoRoundedIcon>
-            <IconButton className="btn-other-controls">
+          </IconButton>
+          <IconButton className="btn-other-controls">
             <FastForwardRoundedIcon
               color="primary">
             </FastForwardRoundedIcon>
           </IconButton>
-          </IconButton>
         </ButtonGroup>
-        </Grid>
-      </div>
-    );
+      </Grid>
+    </div>
+  );
 }
 
 export default OtherControls;

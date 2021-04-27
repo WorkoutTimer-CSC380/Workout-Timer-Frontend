@@ -1,14 +1,10 @@
-
-
 import React from 'react';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
-import WorkoutCreation from './WorkoutCreationRounds';
+import BreakCreation from './BreakCreation';
 import { Button } from '@material-ui/core';
 import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
-
-
 
 function getModalStyle() {
   const top = 50
@@ -39,7 +35,7 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
-function WorkoutCreationModal() {
+function BreakCreationModal() {
   const classes = useStyles();
   const [modalStyle] = React.useState(getModalStyle);
   const [open, setOpen] = React.useState(false);
@@ -55,7 +51,7 @@ function WorkoutCreationModal() {
   return (
     <div>
       <Button variant="contained" color="primary" onClick={handleOpen}>
-        Add Workout
+        Add Break
       </Button>
       <Modal
         open={open}
@@ -66,10 +62,11 @@ function WorkoutCreationModal() {
           timeout: 500,
         }}
       >
+       
         <Fade in={open}>
-          <div style={modalStyle} className={classes.modal}>
-            <WorkoutCreation></WorkoutCreation>
-          </div>
+        <div style={modalStyle} className={classes.modal}>
+          <BreakCreation></BreakCreation>
+        </div>
         </Fade>
       </Modal>
 
@@ -78,4 +75,4 @@ function WorkoutCreationModal() {
 }
 
 
-export default WorkoutCreationModal
+export default BreakCreationModal

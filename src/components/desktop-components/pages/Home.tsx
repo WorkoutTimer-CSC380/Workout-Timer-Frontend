@@ -1,15 +1,18 @@
-import {Typography } from '@material-ui/core';
+import { Typography } from '@material-ui/core';
 import React from 'react';
 import TimerControls from '../../reusables/TimerControls';
 import WorkoutStepper from '../../reusables/WorkoutStepper';
+
 import io from 'socket.io-client';
-
-
 var socket = io("http://localhost:3001");
 
-socket.on("timer", function(){
-  console.log("Testing")
-  
+socket.on("timer", function (message: string) {
+  console.log("Time Expired: " + message);
+});
+
+socket.on("toggle", (state: "pause" | "resume") => {
+  console.log("Timer state: " + state);
+
 });
 
 function Home() {
@@ -29,7 +32,7 @@ function Home() {
         Select or create one in "My Workouts
   </Typography>
 
-  <Typography
+      <Typography
         align="center"
         variant="h5"
         gutterBottom>
@@ -37,9 +40,8 @@ function Home() {
   </Typography>
 
       <TimerControls></TimerControls>
-      <WorkoutStepper></WorkoutStepper>
-     
-     
+
+
     </div>
 
   );

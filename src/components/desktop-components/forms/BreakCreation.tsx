@@ -20,22 +20,14 @@ const uiSchemea: UiSchema = {
 };
 
 const schema: JSONSchema7 = {
-  title: "Create an Exercise",
-  description: "Creating an Exercise / Round",
+  title: "Create an Break",
+  description: "Creating a Break",
   type: "object",
 
   properties: {
     name: {
       type: "string",
-      title: "Exercise Name"
-    },
-    sets: {
-      type: "integer",
-      title: "Sets"
-    },
-    reps: {
-      type: "integer",
-      title: "Reps"
+      title: "Name of Break Block"
     },
     duration: {
       title: "Duration",
@@ -56,7 +48,7 @@ const schema: JSONSchema7 = {
 };
 
 
-function ExerciseCreation() {
+function BreakCreation() {
 
   return (
     <div>
@@ -64,7 +56,6 @@ function ExerciseCreation() {
       <Form
         schema={schema}
         uiSchema={uiSchemea}
-        liveValidate={true}
         onSubmit={({ formData }) => console.log(JSON.stringify(formData, null, 2))}
       />
     </div>
@@ -73,4 +64,4 @@ function ExerciseCreation() {
 
 
 
-export default ExerciseCreation
+export default BreakCreation
