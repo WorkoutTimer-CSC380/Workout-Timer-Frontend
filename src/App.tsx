@@ -18,8 +18,11 @@ import ListItemText from '@material-ui/core/ListItemText';
 import HomeTwoToneIcon from '@material-ui/icons/HomeTwoTone';
 import FitnessCenterTwoToneIcon from '@material-ui/icons/FitnessCenterTwoTone';
 import UpdateTwoToneIcon from '@material-ui/icons/UpdateTwoTone';
-import Home from './components/pages/Home';
-
+import Home from './components/desktop-components/pages/Home';
+import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
+import MyWorkouts from './components/desktop-components/pages/MyWorkouts';
+import RecentWorkouts from './components/desktop-components/pages/RecentWorkouts';
+import TimerIcon from '@material-ui/icons/Timer';
 
 const drawerWidth = 240;
 
@@ -84,6 +87,10 @@ const useStyles = makeStyles((theme: Theme) =>
       flexGrow: 1,
       padding: theme.spacing(3),
     },
+    link: {
+      textDecoration: 'none',
+      color: theme.palette.text.primary
+    }
   }),
 );
 
@@ -103,6 +110,7 @@ function App() {
   return (
     <div className={classes.root}>
       <CssBaseline />
+
       <AppBar
         position="fixed"
         className={clsx(classes.appBar, {
@@ -124,60 +132,76 @@ function App() {
           <Typography variant="h6" noWrap>
             Workout Timer
           </Typography>
+          <IconButton color="inherit">   <TimerIcon></TimerIcon>
+          </IconButton>
         </Toolbar>
       </AppBar>
-      <Drawer
-        variant="permanent"
-        className={clsx(classes.drawer, {
-          [classes.drawerOpen]: open,
-          [classes.drawerClose]: !open,
-        })}
-        classes={{
-          paper: clsx({
+      <Router>
+        <Drawer
+          variant="permanent"
+          className={clsx(classes.drawer, {
             [classes.drawerOpen]: open,
             [classes.drawerClose]: !open,
-          }),
-        }}
-      >
-        <div className={classes.toolbar}>
-          <IconButton onClick={handleDrawerClose}>
-            {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
-          </IconButton>
-        </div>
-        <Divider />
-        <List>
-          <ListItem button>
-            <ListItemIcon>
-              <HomeTwoToneIcon fontSize="large"></HomeTwoToneIcon>
-            </ListItemIcon>
-            <ListItemText primary="Home" />
-          </ListItem>
+          })}
+          classes={{
+            paper: clsx({
+              [classes.drawerOpen]: open,
+              [classes.drawerClose]: !open,
+            }),
+          }}
+        >
+          <div className={classes.toolbar}>
+            <IconButton onClick={handleDrawerClose}>
+              {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
+            </IconButton>
+          </div>
           <Divider />
-          <ListItem button onClick={() => { alert('clicked') }}>
-            <ListItemIcon>
-              <FitnessCenterTwoToneIcon fontSize="large"></FitnessCenterTwoToneIcon>
-            </ListItemIcon>
-            <ListItemText primary="My Workouts" />
-          </ListItem>
+          <List>
+            <Link to="/" className={classes.link}>
+              <ListItem button>
+                <ListItemIcon>
+                  <HomeTwoToneIcon fontSize="large"></HomeTwoToneIcon>
+                </ListItemIcon>
+                <ListItemText primary="Home" />
+              </ListItem>
+            </Link>
+            <Divider />
+            <Link to="/my-workouts" className={classes.link}>
+              <ListItem button>
+                <ListItemIcon>
+                  <FitnessCenterTwoToneIcon fontSize="large"></FitnessCenterTwoToneIcon>
+                </ListItemIcon>
+                <ListItemText primary="My Workouts" />
+              </ListItem>
+            </Link>
+            <Divider />
+            <Link to="/recent-workouts" className={classes.link}>
+              <ListItem button>
+                <ListItemIcon>
+                  <UpdateTwoToneIcon fontSize="large"></UpdateTwoToneIcon>
+                </ListItemIcon>
+                <ListItemText primary="Recent Workouts" />
+              </ListItem>
+            </Link>
+          </List>
           <Divider />
-          <ListItem button>
-            <ListItemIcon>
-              <UpdateTwoToneIcon fontSize="large"></UpdateTwoToneIcon>
-            </ListItemIcon>
-            <ListItemText primary="Recent Workouts" />
-          </ListItem>
-        </List>
-        <Divider />
-        <List>
+          <List>
+            {/* A JSX comment */}
+          </List>
+        </Drawer>
 
-        </List>
-      </Drawer>
-      <main className={classes.content}>
-        <div className={classes.toolbar} />
-        <Home></Home>
-      </main>
+        <main className={classes.content}>
+          <div className={classes.toolbar} />
+          <Switch>
+            <Route exact path="/" component={Home} />
+            <Route exact path="/my-workouts" component={MyWorkouts} />
+            <Route exact path="/recent-workouts" component={RecentWorkouts} />
+          </Switch>
+        </main>
+      </Router>
     </div>
+
   );
 }
 
-export default App;
+export default App
