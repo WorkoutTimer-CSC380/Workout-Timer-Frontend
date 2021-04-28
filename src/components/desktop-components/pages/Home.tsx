@@ -3,7 +3,7 @@ import React from 'react';
 import TimerControls from '../../reusables/TimerControls';
 import WorkoutStepper from '../../reusables/WorkoutStepper';
 import io from 'socket.io-client';
-
+import Timer from '../../reusables/Timer';
 
 var socket = io("http://localhost:3001");
 
@@ -19,25 +19,22 @@ function Home() {
         align="center"
         variant="h5"
         gutterBottom>
-        No Workout in Progress
+        No Workout in Progress, select or create one in the "My Workouts" page
     </Typography>
 
-      <Typography
-        align="center"
-        variant="h5"
-        gutterBottom>
-        Select or create one in "My Workouts
-  </Typography>
+   
 
   <Typography
         align="center"
         variant="h5"
         gutterBottom>
-        Rounds
+        Round
   </Typography>
-
+      <Timer></Timer>
       <TimerControls></TimerControls>
       <WorkoutStepper></WorkoutStepper>
+      
+     
      
      
     </div>

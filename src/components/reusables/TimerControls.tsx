@@ -8,6 +8,8 @@ import PauseCircleFilledRoundedIcon from '@material-ui/icons/PauseCircleFilledRo
 import RedoRoundedIcon from '@material-ui/icons/RedoRounded';
 import { Grid } from '@material-ui/core';
 
+
+
 function TimerControls() {
   return (
     <div>
@@ -15,9 +17,9 @@ function TimerControls() {
         container
         spacing={0}
         justify="center">
-        <ButtonGroup>
-          <IconButton>
-            <PlayCircleFilled
+        <ButtonGroup size='small'>
+          <IconButton onClick={() => { alert('clicked') }}>
+            <PlayCircleFilled 
               fontSize="large"
               color="primary">
             </PlayCircleFilled>
