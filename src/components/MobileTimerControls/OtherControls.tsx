@@ -31,6 +31,7 @@ function OtherControls() {
           </IconButton>
           <IconButton className="btn-other-controls">
             <FastForwardRoundedIcon
+              fontSize="large"
               color="primary">
             </FastForwardRoundedIcon>
           </IconButton>

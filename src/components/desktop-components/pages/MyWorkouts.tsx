@@ -5,6 +5,8 @@ import WorkoutCreationButton from '../forms/WorkoutCreationModal';
 import { Button, Typography } from '@material-ui/core';
 import { plainToClass } from "class-transformer";
 import BreakCreationButton from '../forms/BreakCreationModal';
+import WorkoutBlock from '../../reusables/WorkoutBlock';
+
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -37,6 +39,9 @@ function MyWorkouts() {
       </div>
       <div className={classes.root}>
         <WorkoutCreationButton></WorkoutCreationButton>
+      </div>
+      <div>
+        <WorkoutBlock></WorkoutBlock>
       </div>
     </div>
   );

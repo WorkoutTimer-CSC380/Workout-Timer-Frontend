@@ -2,10 +2,8 @@ import { JSONSchema7 } from "json-schema";
 import { UiSchema } from '@rjsf/core';
 import { withTheme } from '@rjsf/core';
 import { Theme as MuiTheme } from '@rjsf/material-ui';
-import { RepeatOneSharp } from "@material-ui/icons";
-import { createNumericLiteral } from "typescript";
-import { dataURItoBlob, setState } from "react-jsonschema-form/lib/utils";
-import { useEffect } from "react";
+import React, { useState, useEffect } from 'react';
+import { Typography } from "@material-ui/core";
 
 
 const Form = withTheme(MuiTheme);
@@ -16,14 +14,11 @@ const uiSchemea: UiSchema = {
     }
 };
 
-function formWorkaround(enums: string[]): JSONSchema7 {
+function createForm(dropDownOptions: string[]): JSONSchema7 {
     return {
         title: "Create a Workout",
         description: "Creating a Workout",
         type: "object",
-        required: [
-            "name", "rounds"
-        ],
         properties: {
             name: {
                 type: "string",
@@ -38,7 +33,7 @@ function formWorkaround(enums: string[]): JSONSchema7 {
                         element: {
                             title: "Workout Element",
                             type: "string",
-                            enum: enums
+                            enum: dropDownOptions
                         }
                     }
 
@@ -49,40 +44,25 @@ function formWorkaround(enums: string[]): JSONSchema7 {
     };
 }
 
-function testFunc() {
-    fetch('http://localhost:3001/workouts')
-        .then(response => response.json())
-        .then(data => console.log(data));
-}
-
-
-function getDropdownJson(): Promise<string[]> {
-    return fetch('http://localhost:3001/workouts')
-        .then(response => response.json())
-        .then(val => { return val as string[] });
-}
-
-// async function getDropdownJson(): string[] {
-//     let response = await fetch('http://localhost:3001/workouts');
-//     let data: string[] = await response.json()
-
-//     data.forEach((element: any) => {
-//         console.log(element)
-//     });
-
-//     return data as string[];
-// }
 
 function WorkoutCreation() {
-    const workoutArr = getDropdownJson();
-
+    //TODO: Replace With Exercise and Break Bank
+    // const [options, setOptions] = useState('');
+    const [options, setOptions] = useState<string[]>([]);
+    useEffect(() => {
+        const fetchDataAsync = async () => {
+            const response = await fetch('http://localhost:3001/workouts')
+            const data = await response.json()
+            setOptions(data)
+        }
+        fetchDataAsync()
+    }, []);
     return (
         <div>
             <Form
-                schema={formWorkaround(["a"])}
+                schema={createForm(options)}
                 uiSchema={uiSchemea}
                 // liveValidate={true}
-                // localhost:3001/workouts
                 onSubmit={({ formData }) => console.log(JSON.stringify(formData, null, 2))}
             /*      onSubmit={({ formData }) => fetch(
                      'http://localhost:3001/workouts', {

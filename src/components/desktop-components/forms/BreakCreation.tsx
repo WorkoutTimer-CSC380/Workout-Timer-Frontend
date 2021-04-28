@@ -23,7 +23,6 @@ const schema: JSONSchema7 = {
   title: "Create an Break",
   description: "Creating a Break",
   type: "object",
-
   properties: {
     name: {
       type: "string",
@@ -47,12 +46,9 @@ const schema: JSONSchema7 = {
   }
 };
 
-
 function BreakCreation() {
-
   return (
     <div>
-
       <Form
         schema={schema}
         uiSchema={uiSchemea}
@@ -61,7 +57,5 @@ function BreakCreation() {
     </div>
   );
 }
-
-
 
 export default BreakCreation
