@@ -1,5 +1,4 @@
 import IconButton from '@material-ui/core/IconButton';
-import ButtonGroup from '@material-ui/core/ButtonGroup'
 import PlayCircleFilled from '@material-ui/icons/PlayCircleFilled';
 import PauseCircleFilledRoundedIcon from '@material-ui/icons/PauseCircleFilledRounded';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
