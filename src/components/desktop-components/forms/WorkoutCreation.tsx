@@ -24,7 +24,7 @@ function createForm(dropDownOptions: string[]): JSONSchema7 {
                 type: "string",
                 title: "Workout Name"
             },
-            exercises: {
+            workoutElements: {
                 type: "array",
                 title: "Add Workout Elements",
                 items: {

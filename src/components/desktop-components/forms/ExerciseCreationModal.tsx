@@ -51,7 +51,7 @@ function ExerciseCreationModal() {
   return (
     <div>
       <Button variant="contained" color="primary" onClick={handleOpen}>
-        Add Exercise
+        Create Exercise
       </Button>
       <Modal
         open={open}

@@ -51,7 +51,7 @@ function BreakCreationModal() {
   return (
     <div>
       <Button variant="contained" color="primary" onClick={handleOpen}>
-        Add Break
+        Create Break
       </Button>
       <Modal
         open={open}
