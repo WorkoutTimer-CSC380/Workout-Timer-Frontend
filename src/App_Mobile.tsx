@@ -5,7 +5,7 @@ import WorkoutStepper from './components/reusables/WorkoutStepper'
 function AppMobile() {
   return (
     <div>
-      <TimerControls></TimerControls>
+     
       <WorkoutStepper></WorkoutStepper>
     </div>
   );

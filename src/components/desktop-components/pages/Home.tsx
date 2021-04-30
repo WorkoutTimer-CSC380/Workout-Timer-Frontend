@@ -3,7 +3,6 @@ import React from 'react';
 import TimerControls from '../../reusables/TimerControls';
 import WorkoutStepper from '../../reusables/WorkoutStepper';
 import io from 'socket.io-client';
-import Timer from '../../reusables/Timer';
 
 var socket = io("http://localhost:3001");
 
@@ -30,8 +29,7 @@ function Home() {
         gutterBottom>
         Round
   </Typography>
-      <Timer></Timer>
-      <TimerControls></TimerControls>
+      <TimerControls seconds={24}></TimerControls>
       <WorkoutStepper></WorkoutStepper>
       
      
