@@ -1,8 +1,20 @@
 import IconButton from '@material-ui/core/IconButton';
-import ButtonGroup from '@material-ui/core/ButtonGroup'
 import PlayCircleFilled from '@material-ui/icons/PlayCircleFilled';
 import PauseCircleFilledRoundedIcon from '@material-ui/icons/PauseCircleFilledRounded';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
+import io from "socket.io-client"
+
+let socket = io("http://localhost:3001");
+
+function pause(){
+  console.log("pause requested");  
+  socket.emit("MobilePause");
+}
+
+function play(){
+  console.log("resume requested");  
+  socket.emit("MobilePlay");
+}
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -19,13 +31,13 @@ function MobileTimerControls(){
 
   return(
     <div className={classes.root}>
-          <IconButton className="btn-play">
+          <IconButton className="btn-play" onClick={play}>
             <PlayCircleFilled 
               fontSize="large"
               color="primary">
             </PlayCircleFilled>
           </IconButton>
-          <IconButton className="btn-pause">
+          <IconButton className="btn-pause" onClick={pause}>
             <PauseCircleFilledRoundedIcon
               fontSize="large"
               color="primary">

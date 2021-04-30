@@ -7,7 +7,7 @@ function AppMobile() {
   return (
     <div>
       <h1>Current Workout</h1>
-      <Grid container direction="column" justify="center" alignItems="center">
+      <Grid container direction="column" alignItems="center">
         <Grid item>
           <MobileTimerControls></MobileTimerControls>
         </Grid>

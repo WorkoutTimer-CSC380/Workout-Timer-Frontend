@@ -18,6 +18,7 @@ function renderContent() {
       document.getElementById('root')
     );
   }
+
   else {
     ReactDOM.render(
       <React.StrictMode>
