@@ -34,7 +34,6 @@ function TimerControls({ hours = 0, minutes = 0, seconds = 0 }) {
     } else {
       setTime([h, m, s - 1]);
     }
-    
   };
 
   //Starts timer
@@ -46,6 +45,8 @@ function TimerControls({ hours = 0, minutes = 0, seconds = 0 }) {
 
   //Pauses timer
   const pauseTimer = () => {
+    console.log("pause requested");  
+    fetch('http://localhost:3001/timers/pause')
     setPaused(true)
     setStart(false)
     setStop(false)
@@ -53,6 +54,8 @@ function TimerControls({ hours = 0, minutes = 0, seconds = 0 }) {
 
   //Stops timer-connected to stop button
   const stopTimer = () => {
+    console.log("resume requested");  
+    fetch('http://localhost:3001/timers/resume')
     setTime([h,m, s]);
     setPaused(false);
     setStop(true);
@@ -84,20 +87,20 @@ const resetTimer = () => {
         <p>{`${h.toString().padStart(2, '0')}:${m
         .toString()
         .padStart(2, '0')}:${s.toString().padStart(2, '0')}`}</p>  
-       </Typography>
+      </Typography>
     
       <Grid
         container
         spacing={0}
         justify="center">
         <ButtonGroup size='small'>
-          <IconButton onClick={() => startTimer()}>
+          <IconButton onClick={startTimer}>
             <PlayCircleFilled  
               fontSize="large"
               color="primary">
             </PlayCircleFilled>
           </IconButton>
-          <IconButton onClick={() => pauseTimer()}>
+          <IconButton onClick={pauseTimer}>
             <PauseCircleFilledRoundedIcon
               fontSize="large"
               color="primary">
@@ -117,13 +120,13 @@ const resetTimer = () => {
               color="primary">
             </FastRewindRoundedIcon>
           </IconButton>
-          <IconButton onClick={() => stopTimer()}>
+          <IconButton onClick={stopTimer}>
             <StopRoundedIcon
               fontSize="large"
               color="primary">
             </StopRoundedIcon>
           </IconButton>
-          <IconButton onClick={() => resetTimer()}>
+          <IconButton onClick={resetTimer}>
             <RedoRoundedIcon
               fontSize="large"
               color="primary">
@@ -139,10 +142,6 @@ const resetTimer = () => {
       </Grid>
     </div>
   );
-}
-
-function Start(){
-  
 }
 
 export default TimerControls;
