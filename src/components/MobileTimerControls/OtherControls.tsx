@@ -9,8 +9,8 @@ import io from "socket.io-client";
 let socket = io("http://localhost:3001");
 
 function restart(){
-  console.log("restart requested");  
-  socket.emit("MobileRestart");
+  console.log("mobile-restart requested");  
+  socket.emit("Invoked-MobileRestart");
 }
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
-function OtherControls() {
+export default function OtherControls() {
   const classes = useStyles();
   
   return (
@@ -56,4 +56,4 @@ function OtherControls() {
   );
 }
 
-export default OtherControls;
+

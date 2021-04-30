@@ -46,7 +46,7 @@ const schema: JSONSchema7 = {
   }
 };
 
-function BreakCreation() {
+export default function BreakCreation() {
   return (
     <div>
       <Form
@@ -58,4 +58,3 @@ function BreakCreation() {
   );
 }
 
-export default BreakCreation

@@ -33,9 +33,35 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
-export default function WorkoutBlock() {
-  const classes = useStyles();
 
+type Props = {
+  name: string;
+  numberOfExercises: number;
+
+}
+
+function deleteWorkout(workoutName: string) {
+  fetch(
+    'http://localhost:3001/workouts/' + workoutName, {
+    method: 'DELETE', headers: {
+      'Content-type': 'application/json'
+    }
+  })
+}
+
+function loadWorkout(workoutName: string) {
+/*   fetch(
+    'http://localhost:3001/workouts/' + workoutName, {
+    method: 'DELETE', headers: {
+      'Content-type': 'application/json'
+    }
+  }) */
+  console.log("Loadworkout: TODO")
+}
+
+
+export default function WorkoutBlock(props: Props) {
+  const classes = useStyles();
   return (
     <div className={classes.root}>
       <Paper className={classes.paper}>
@@ -52,22 +78,19 @@ export default function WorkoutBlock() {
             <Grid item xs container direction="column" spacing={2}>
               <Grid item xs>
                 <Typography gutterBottom variant="subtitle1">
-                  Workout Name: $WorkoutVar
+                  Name: {props.name}
                 </Typography>
                 <Typography variant="body2" gutterBottom>
-                  Number of Exercises: $ExerciseVar
-                </Typography>
-                <Typography variant="body2" color="textSecondary">
-                  Duration: $DurationVar
+                  Number of Exercises: {props.numberOfExercises}
                 </Typography>
               </Grid>
               <Grid item>
-                <Button variant="contained" color="primary">
+                <Button variant="contained" color="primary" value={props.name} onClick={() => loadWorkout(props.name)}>
                   Load
                 </Button>
               </Grid>
               <Grid item>
-              <Button variant="contained" color="secondary">
+                <Button variant="contained" color="secondary" value={props.name} onClick={() => deleteWorkout(props.name)}>
                   Delete
                 </Button>
               </Grid>

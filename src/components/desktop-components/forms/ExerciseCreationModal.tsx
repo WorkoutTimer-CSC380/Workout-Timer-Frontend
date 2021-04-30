@@ -35,7 +35,7 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
-function ExerciseCreationModal() {
+export default function ExerciseCreationModal() {
   const classes = useStyles();
   const [modalStyle] = React.useState(getModalStyle);
   const [open, setOpen] = React.useState(false);
@@ -75,4 +75,3 @@ function ExerciseCreationModal() {
 }
 
 
-export default ExerciseCreationModal

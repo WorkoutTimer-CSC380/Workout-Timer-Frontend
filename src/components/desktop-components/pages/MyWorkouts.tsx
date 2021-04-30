@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import ExerciseCreationButton from '../forms/ExerciseCreationModal';
 import WorkoutCreationButton from '../forms/WorkoutCreationModal';
@@ -30,23 +30,32 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 
-function MyWorkouts() {
+export default function MyWorkouts() {
   const classes = useStyles();
   
-  function FormRow() {
+  // TODO: Replace With Exercise and Break Bank
+  // const [options, setOptions] = useState('');
+  const [options, setOptions] = useState<string[]>([]);
+  useEffect(() => {
+    const fetchDataAsync = async () => {
+      const response = await fetch('http://localhost:3001/workouts')
+      const data = await response.json()
+      setOptions(data)
+    }
+    fetchDataAsync()
+  }, []);
+
+function FormRow() {
     return (
       <React.Fragment>
         <Grid item xs={4}>
-          <WorkoutBlock></WorkoutBlock>
-
+          <WorkoutBlock name="WorkoutA" numberOfExercises={2}></WorkoutBlock>
         </Grid>
         <Grid item xs={4}>
-          <WorkoutBlock></WorkoutBlock>
-
+          <WorkoutBlock name="WorkoutB" numberOfExercises={2}></WorkoutBlock>
         </Grid>
         <Grid item xs={4}>
-          <WorkoutBlock></WorkoutBlock>
-
+          <WorkoutBlock name="WorkoutC" numberOfExercises={2}></WorkoutBlock>
         </Grid>
       </React.Fragment>
     );
@@ -57,6 +66,7 @@ function MyWorkouts() {
       <Typography variant="h3">
         My Workouts
       </Typography>
+
       <div className={classes.root}>
         <ExerciseCreationButton></ExerciseCreationButton>
       </div>
@@ -66,7 +76,7 @@ function MyWorkouts() {
       <div className={classes.root}>
         <WorkoutCreationButton></WorkoutCreationButton>
       </div>
-    
+
 
       <div className={classes.root}>
         <Grid container spacing={1}>
@@ -86,4 +96,3 @@ function MyWorkouts() {
   );
 }
 
-export default MyWorkouts

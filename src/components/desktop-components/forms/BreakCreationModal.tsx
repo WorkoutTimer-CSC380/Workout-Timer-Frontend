@@ -35,7 +35,7 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
-function BreakCreationModal() {
+export default function BreakCreationModal() {
   const classes = useStyles();
   const [modalStyle] = React.useState(getModalStyle);
   const [open, setOpen] = React.useState(false);
@@ -75,4 +75,3 @@ function BreakCreationModal() {
 }
 
 
-export default BreakCreationModal

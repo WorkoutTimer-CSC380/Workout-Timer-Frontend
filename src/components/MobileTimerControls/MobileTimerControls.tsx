@@ -7,12 +7,12 @@ import io from "socket.io-client"
 let socket = io("http://localhost:3001");
 
 function pause(){
-  console.log("pause requested");  
-  socket.emit("MobilePause");
+  console.log("mobile-pause requested");  
+  socket.emit("Invoked-MobilePause");
 }
 
 function play(){
-  console.log("resume requested");  
+  console.log("mobile-start requested");  
   socket.emit("MobilePlay");
 }
 
@@ -26,7 +26,7 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
-function MobileTimerControls(){
+export default function MobileTimerControls(){
   const classes = useStyles();
 
   return(
@@ -46,5 +46,3 @@ function MobileTimerControls(){
       </div>
     );
 }
-
-export default MobileTimerControls;

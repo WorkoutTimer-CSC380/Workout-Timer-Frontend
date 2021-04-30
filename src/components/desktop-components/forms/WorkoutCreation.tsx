@@ -45,18 +45,19 @@ function createForm(dropDownOptions: string[]): JSONSchema7 {
 }
 
 
-function WorkoutCreation() {
+export default function WorkoutCreation() {
     //TODO: Replace With Exercise and Break Bank
     // const [options, setOptions] = useState('');
     const [options, setOptions] = useState<string[]>([]);
     useEffect(() => {
         const fetchDataAsync = async () => {
-            const response = await fetch('http://localhost:3001/workouts')
+            const response = await fetch('http://localhost:3001/exercises/names')
             const data = await response.json()
             setOptions(data)
         }
         fetchDataAsync()
     }, []);
+
     return (
         <div>
             <Form
@@ -75,4 +76,3 @@ function WorkoutCreation() {
     );
 }
 
-export default WorkoutCreation

@@ -89,7 +89,7 @@ function validate(formData: any, errors : any){
  
 }
 
-function ExerciseCreation() {
+export default function ExerciseCreation() {
 
   return (
     <div>
@@ -107,4 +107,3 @@ function ExerciseCreation() {
 
 
 
-export default ExerciseCreation

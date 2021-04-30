@@ -12,7 +12,7 @@ import io from "socket.io-client";
   
 
 
-function TimerControls({ hours = 0, minutes = 0, seconds = 0 }) {
+export default function TimerControls({ hours = 0, minutes = 0, seconds = 0 }) {
 
   var min: number = minutes;
   var sec: number = seconds;
@@ -50,9 +50,30 @@ function TimerControls({ hours = 0, minutes = 0, seconds = 0 }) {
     }
   };
 
+
+  function socket_pause(){
+    console.log("desktop-pause requested");  
+    socket.emit("Invoked-DesktopPause");
+  }
+  
+  function socket_start(){
+    console.log("desktop-start requested");  
+    socket.emit("Invoked-DesktopPlay");
+  }
+
+  function socket_restart(){
+    console.log("desktop-restart requested");  
+    socket.emit("Invoked-DesktopRestart");
+  }
+  
+  function socket_stop(){
+    console.log("desktop-stop requested");  
+    socket.emit("Invoked-DesktopStop");
+  }
+
   //Starts timer
   const startTimer = () => {
-    console.log("resume requested");  
+    console.log("resume requested from desktop");  
     fetch('http://localhost:3001/timers/resume')
     setPaused(false)
     setStart(true)
@@ -60,8 +81,7 @@ function TimerControls({ hours = 0, minutes = 0, seconds = 0 }) {
   }
 
   //Pauses timer
-  const pauseTimer = () => {
-    console.log("pause requested");  
+  const pauseTimer = () => { 
     fetch('http://localhost:3001/timers/pause')
     setPaused(true)
     setStart(false)
@@ -108,13 +128,13 @@ const resetTimer = () => {
         spacing={0}
         justify="center">
         <ButtonGroup size='small'>
-          <IconButton onClick={startTimer}>
+          <IconButton onClick={socket_start}>
             <PlayCircleFilled  
               fontSize="large"
               color="primary">
             </PlayCircleFilled>
           </IconButton>
-          <IconButton onClick={pauseTimer}>
+          <IconButton onClick={socket_pause}>
             <PauseCircleFilledRoundedIcon
               fontSize="large"
               color="primary">
@@ -134,13 +154,13 @@ const resetTimer = () => {
               color="primary">
             </FastRewindRoundedIcon>
           </IconButton>
-          <IconButton onClick={stopTimer}>
+          <IconButton onClick={socket_stop}>
             <StopRoundedIcon
               fontSize="large"
               color="primary">
             </StopRoundedIcon>
           </IconButton>
-          <IconButton onClick={resetTimer}>
+          <IconButton onClick={socket_restart}>
             <RedoRoundedIcon
               fontSize="large"
               color="primary">
@@ -158,4 +178,3 @@ const resetTimer = () => {
   );
 }
 
-export default TimerControls;

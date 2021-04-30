@@ -3,7 +3,7 @@ import React from 'react';
 import TimerControls from '../../reusables/TimerControls';
 import WorkoutStepper from '../../reusables/WorkoutStepper';
 
-function Home() {
+export default function Home() {
   return (
     <div>
       <Typography
@@ -18,10 +18,8 @@ function Home() {
         gutterBottom>
         Round
       </Typography>
-      <TimerControls seconds={24}></TimerControls>
+      <TimerControls hours={0} minutes={1} seconds={59}></TimerControls>
       <WorkoutStepper></WorkoutStepper>
     </div>
   );
 }
-
-export default Home;

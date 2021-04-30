@@ -94,7 +94,7 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
-function App() {
+export default function App() {
   const classes = useStyles();
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
@@ -204,4 +204,3 @@ function App() {
   );
 }
 
-export default App

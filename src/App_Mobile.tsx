@@ -3,7 +3,7 @@ import MobileTimerControls from './components/MobileTimerControls/MobileTimerCon
 import OtherControls from './components/MobileTimerControls/OtherControls';
 import { Grid } from '@material-ui/core';
 
-function AppMobile() {
+export default function AppMobile() {
   return (
     <div>
       <h1>Current Workout</h1>
@@ -19,4 +19,4 @@ function AppMobile() {
   );
 }
 
-export default AppMobile;
+

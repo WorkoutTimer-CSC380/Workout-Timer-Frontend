@@ -39,7 +39,7 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
-function WorkoutCreationModal() {
+export default function WorkoutCreationModal() {
   const classes = useStyles();
   const [modalStyle] = React.useState(getModalStyle);
   const [open, setOpen] = React.useState(false);
@@ -76,6 +76,3 @@ function WorkoutCreationModal() {
     </div>
   );
 }
-
-
-export default WorkoutCreationModal
