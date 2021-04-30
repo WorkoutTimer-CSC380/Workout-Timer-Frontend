@@ -12,10 +12,6 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import { StepIconProps } from '@material-ui/core/StepIcon';
 
-
-
-
-
 const ColorlibConnector = withStyles({
   alternativeLabel: {
     top: 22,

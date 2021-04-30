@@ -17,15 +17,6 @@ const uiSchemea: UiSchema = {
       "ui:widget": "updown"
     },
   },
-  "breakDuration": {
-    "minutes": {
-      "ui:widget": "updown"
-    },
-    "seconds": {
-      "ui:widget": "updown"
-    },
-  }
-
 };
 
 const schema: JSONSchema7 = {
@@ -103,7 +94,7 @@ function ExerciseCreation() {
   return (
     <div>
 
-      <Form 
+      <Form
         schema={schema}
         uiSchema={uiSchemea}
        // liveValidate={true}

@@ -1,0 +1,31 @@
+h1 {
+  color: #3f51b5;
+  font-size: 42px;
+  margin-top: 50px;
+  margin-bottom: 200px;
+  text-align: center;
+}
+
+.btn-play {
+  transform: scale(3.0);
+}
+
+.btn-pause {
+  transform: scale(3.0);
+}
+
+.btn-skip {
+  transform: scale(2.0);
+}
+
+.btn-skip-back {
+  transform: scale(2.0);
+}
+
+.btn-stop {
+  transform: scale(2.0);
+}
+
+.btn-restart {
+  transform: scale(2.0);
+}

@@ -7,10 +7,8 @@ import StopRoundedIcon from '@material-ui/icons/StopRounded';
 import PauseCircleFilledRoundedIcon from '@material-ui/icons/PauseCircleFilledRounded';
 import RedoRoundedIcon from '@material-ui/icons/RedoRounded';
 import { Grid, Typography } from '@material-ui/core';
-import {useEffect, useState} from 'react';
-
-
-
+import {useEffect, useRef, useState} from 'react';
+import io from "socket.io-client";
   
 
 
@@ -22,7 +20,23 @@ function TimerControls({ hours = 0, minutes = 0, seconds = 0 }) {
   const [paused, setPaused] = useState(false);
   const[stop, setStop] = useState(false);
   const[start, setStart] = useState(false);
+  let socket = io("http://localhost:3001");
 
+  socket.on("DesktopPause", () => {
+    console.log("Made it to TimerControls")
+    pauseTimer();
+  });
+
+  socket.on("DesktopPlay", () => {
+    console.log("Made it to TimerControls")
+    startTimer();
+  });
+
+  socket.on("DesktopRestart", () => {
+    console.log("Made it to TimerControls")
+    resetTimer();
+  });
+  
   //Counts down timer
   const tick = () => {
     if(paused || stop ) return;
@@ -38,6 +52,8 @@ function TimerControls({ hours = 0, minutes = 0, seconds = 0 }) {
 
   //Starts timer
   const startTimer = () => {
+    console.log("resume requested");  
+    fetch('http://localhost:3001/timers/resume')
     setPaused(false)
     setStart(true)
     setStop(false)
@@ -54,8 +70,6 @@ function TimerControls({ hours = 0, minutes = 0, seconds = 0 }) {
 
   //Stops timer-connected to stop button
   const stopTimer = () => {
-    console.log("resume requested");  
-    fetch('http://localhost:3001/timers/resume')
     setTime([h,m, s]);
     setPaused(false);
     setStop(true);

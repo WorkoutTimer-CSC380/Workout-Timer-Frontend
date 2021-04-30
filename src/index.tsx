@@ -7,12 +7,9 @@ import 'fontsource-roboto';
 import {
   isMobile
 } from "react-device-detect";
-
 import AppMobile from './App_Mobile';
 
-
-
-function renderContent () {
+function renderContent() {
   if (!isMobile) {
     ReactDOM.render(
       <React.StrictMode>
