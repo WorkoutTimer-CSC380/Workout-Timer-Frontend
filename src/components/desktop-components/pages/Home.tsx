@@ -1,7 +1,9 @@
-import { Typography } from '@material-ui/core';
+import { Button, Typography } from '@material-ui/core';
 import React from 'react';
-import TimerControls from '../../reusables/TimerControls';
+import TimerControls from '../../reusables/timer-controls/DesktopTimerControls';
 import WorkoutStepper from '../../reusables/WorkoutStepper';
+
+
 
 export default function Home() {
   return (
@@ -18,8 +20,11 @@ export default function Home() {
         gutterBottom>
         Round
       </Typography>
-      <TimerControls hours={0} minutes={1} seconds={59}></TimerControls>
+      <TimerControls></TimerControls>
       <WorkoutStepper></WorkoutStepper>
+      <Button variant="contained" color="primary" onClick={() => console.log(process.env.REACT_APP_HOSTNAME)}>
+        {process.env.REACT_APP_HOSTNAME} 
+      </Button>
     </div>
   );
 }

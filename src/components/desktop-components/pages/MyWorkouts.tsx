@@ -29,6 +29,8 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
+const HOSTNAME = window.location.hostname
+
 
 export default function MyWorkouts() {
   const classes = useStyles();
@@ -38,7 +40,7 @@ export default function MyWorkouts() {
   const [options, setOptions] = useState<string[]>([]);
   useEffect(() => {
     const fetchDataAsync = async () => {
-      const response = await fetch('http://localhost:3001/workouts')
+      const response = await fetch("http://" + HOSTNAME + ":3001/workouts")
       const data = await response.json()
       setOptions(data)
     }

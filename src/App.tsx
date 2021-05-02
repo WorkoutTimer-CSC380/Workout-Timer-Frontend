@@ -186,7 +186,6 @@ export default function App() {
           </List>
           <Divider />
           <List>
-            {/* A JSX comment */}
           </List>
         </Drawer>
 

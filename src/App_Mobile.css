@@ -13,15 +13,6 @@ h1 {
 .btn-pause {
   transform: scale(3.0);
 }
-
-.btn-skip {
-  transform: scale(2.0);
-}
-
-.btn-skip-back {
-  transform: scale(2.0);
-}
-
 .btn-stop {
   transform: scale(2.0);
 }

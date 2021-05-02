@@ -44,6 +44,7 @@ function createForm(dropDownOptions: string[]): JSONSchema7 {
     };
 }
 
+const HOSTNAME = window.location.hostname
 
 export default function WorkoutCreation() {
     //TODO: Replace With Exercise and Break Bank
@@ -51,7 +52,7 @@ export default function WorkoutCreation() {
     const [options, setOptions] = useState<string[]>([]);
     useEffect(() => {
         const fetchDataAsync = async () => {
-            const response = await fetch('http://localhost:3001/exercises/names')
+            const response = await fetch("http://" + HOSTNAME + ":3001/exercises/names")
             const data = await response.json()
             setOptions(data)
         }
@@ -64,13 +65,13 @@ export default function WorkoutCreation() {
                 schema={createForm(options)}
                 uiSchema={uiSchemea}
                 // liveValidate={true}
-                onSubmit={({ formData }) => console.log(JSON.stringify(formData, null, 2))}
-            /*      onSubmit={({ formData }) => fetch(
-                     'http://localhost:3001/workouts', {
+                 onSubmit={({ formData }) => console.log(JSON.stringify(formData, null, 2))}
+            /*       onSubmit={({ formData }) => fetch(
+                     "http://" + HOSTNAME + ":3001/workouts", {
                      method: 'POST',
                      headers: { 'Content-type': 'application/json' },
                      body: JSON.stringify(formData, null, 2)
-                 })} */
+                 })}  */
             />
         </div>
     );
