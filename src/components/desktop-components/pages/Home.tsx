@@ -22,9 +22,6 @@ export default function Home() {
       </Typography>
       <TimerControls></TimerControls>
       <WorkoutStepper></WorkoutStepper>
-      <Button variant="contained" color="primary" onClick={() => console.log(process.env.REACT_APP_HOSTNAME)}>
-        {process.env.REACT_APP_HOSTNAME} 
-      </Button>
     </div>
   );
 }

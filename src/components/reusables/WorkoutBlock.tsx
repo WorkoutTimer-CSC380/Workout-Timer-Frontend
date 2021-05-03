@@ -36,8 +36,6 @@ const useStyles = makeStyles((theme: Theme) =>
 
 type Props = {
   name: string;
-  numberOfExercises: number;
-
 }
 
 function deleteWorkout(workoutName: string) {
@@ -47,6 +45,7 @@ function deleteWorkout(workoutName: string) {
       'Content-type': 'application/json'
     }
   })
+
 }
 
 function loadWorkout(workoutName: string) {
@@ -79,9 +78,6 @@ export default function WorkoutBlock(props: Props) {
               <Grid item xs>
                 <Typography gutterBottom variant="subtitle1">
                   Name: {props.name}
-                </Typography>
-                <Typography variant="body2" gutterBottom>
-                  Number of Exercises: {props.numberOfExercises}
                 </Typography>
               </Grid>
               <Grid item>

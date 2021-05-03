@@ -4,6 +4,8 @@ import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import ButtonBase from '@material-ui/core/ButtonBase';
+import FitnessCenterIcon from '@material-ui/icons/FitnessCenter';
+import { Button } from '@material-ui/core';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -25,38 +27,54 @@ const useStyles = makeStyles((theme: Theme) =>
       maxWidth: '100%',
       maxHeight: '100%',
     },
+    icon_size: {
+      scale: "100%"
+    }
   }),
 );
 
-export default function RecentWorkoutBlock() {
-  const classes = useStyles();
 
+type Props = {
+  name: string;
+}
+
+
+function loadWorkout(workoutName: string) {
+/*   fetch(
+    'http://localhost:3001/recents/' + workoutName, {
+    method: 'DELETE', headers: {
+      'Content-type': 'application/json'
+    }
+  }) */
+  console.log("Loadworkout: TODO")
+}
+
+
+export default function RecentWorkoutsBlock(props: Props) {
+  const classes = useStyles();
   return (
     <div className={classes.root}>
       <Paper className={classes.paper}>
         <Grid container spacing={2}>
           <Grid item>
             <ButtonBase className={classes.image}>
-              <img className={classes.img} alt="complex" src="/static/images/grid/complex.jpg" />
+              <FitnessCenterIcon
+                fontSize="large"
+                color="primary">
+              </FitnessCenterIcon>
             </ButtonBase>
           </Grid>
           <Grid item xs={12} sm container>
             <Grid item xs container direction="column" spacing={2}>
               <Grid item xs>
                 <Typography gutterBottom variant="subtitle1">
-                  Workout Name
-                </Typography>
-                <Typography variant="body2" gutterBottom>
-                  Number of Exercises
-                </Typography>
-                <Typography variant="body2" color="textSecondary">
-                  Duration
+                  Name: {props.name}
                 </Typography>
               </Grid>
               <Grid item>
-                <Typography variant="body2" style={{ cursor: 'pointer' }}>
+                <Button variant="contained" color="primary" value={props.name} onClick={() => loadWorkout(props.name)}>
                   Load
-                </Typography>
+                </Button>
               </Grid>
             </Grid>
           </Grid>
