@@ -19,7 +19,7 @@ let socket = io("http://" + HOSTNAME + ":3001");
 
 export default function DesktopTimerControls() {
   type DeviceType = "desktop" | "mobile";
-  type TimerEvent = "pause" | "play" | "restart";
+  type TimerEvent = "pause" | "play" | "restart" | "stop";
 
   socket.on("pause", (device: DeviceType) => {
     console.log("pause")
