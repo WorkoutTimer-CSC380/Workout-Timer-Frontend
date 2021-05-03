@@ -23,7 +23,7 @@ const schema: JSONSchema7 = {
   title: "Create an Exercise",
   description: "Creating an Exercise / Round",
   type: "object",
-  required : [
+  required: [
     "sets", "reps"
   ],
   properties: {
@@ -39,11 +39,11 @@ const schema: JSONSchema7 = {
       type: "integer",
       title: "Reps"
     },
-   duration: {
+    duration: {
       title: "Duration",
       description: "Enter a duration time",
       type: "object",
-      required :[
+      required: [
         "minutes", "seconds"
       ],
       properties: {
@@ -55,51 +55,56 @@ const schema: JSONSchema7 = {
           type: "integer",
           title: "seconds"
         }
-     }
-   },
+      }
+    },
   }
 };
 
-function validate(formData: any, errors : any){
-   if(formData.duration.minutes < 0){
-     errors.duration.minutes.addError("Negative number not allowed");
+function validate(formData: any, errors: any) {
+  if (formData.duration.minutes < 0) {
+    errors.duration.minutes.addError("Negative number not allowed");
 
-   } else if(formData.duration.minutes > 60){
-     errors.duration.minutes.addError("Cannot exceed 60 mintues");
+  } else if (formData.duration.minutes > 60) {
+    errors.duration.minutes.addError("Cannot exceed 60 mintues");
 
-   } else if(formData.duration.seconds < 0){
-     errors.duration.seconds.addError("Negative number not allowed");
+  } else if (formData.duration.seconds < 0) {
+    errors.duration.seconds.addError("Negative number not allowed");
 
-   } else if(formData.duration.seconds > 60){
-     errors.duration.seconds.addError("Cannot exceed 60 mintues");
+  } else if (formData.duration.seconds > 60) {
+    errors.duration.seconds.addError("Cannot exceed 60 mintues");
 
-   } else if(formData.sets < 0){
+  } else if (formData.sets < 0) {
     errors.sets.addError("Negative number not allowed");
 
-  } else if(formData.sets > 9999){
+  } else if (formData.sets > 9999) {
     errors.sets.addError("Too many sets");
 
-  } else if(formData.reps < 0){
+  } else if (formData.reps < 0) {
     errors.reps.addError("Negative number not allowed");
 
-  } else if(formData.reps > 9999){
+  } else if (formData.reps > 9999) {
     errors.reps.addError("Too many reps");
   }
-   return errors;
- 
+  return errors;
+
 }
-
+const HOSTNAME = window.location.hostname
 export default function ExerciseCreation() {
-
   return (
     <div>
 
       <Form
         schema={schema}
         uiSchema={uiSchemea}
-       // liveValidate={true}
-        validate = {validate}
-        onSubmit={({formData}) => console.log(JSON.stringify(formData, null, 2))}
+        // liveValidate={true}
+        validate={validate}
+        //onSubmit={({formData}) => console.log(JSON.stringify(formData, null, 2))}
+        onSubmit={({ formData }) => fetch(
+          "http://" + HOSTNAME + ":3001/exercises", {
+          method: 'POST',
+          headers: { 'Content-type': 'application/json' },
+          body: JSON.stringify(formData, null, 2)
+        })}
       />
     </div>
   );

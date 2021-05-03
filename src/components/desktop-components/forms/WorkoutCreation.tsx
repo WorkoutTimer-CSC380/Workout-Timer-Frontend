@@ -65,13 +65,13 @@ export default function WorkoutCreation() {
                 schema={createForm(options)}
                 uiSchema={uiSchemea}
                 // liveValidate={true}
-                 onSubmit={({ formData }) => console.log(JSON.stringify(formData, null, 2))}
-            /*       onSubmit={({ formData }) => fetch(
+                 //onSubmit={({ formData }) => console.log(JSON.stringify(formData, null, 2))}
+                   onSubmit={({ formData }) => fetch(
                      "http://" + HOSTNAME + ":3001/workouts", {
                      method: 'POST',
                      headers: { 'Content-type': 'application/json' },
                      body: JSON.stringify(formData, null, 2)
-                 })}  */
+                 })}  
             />
         </div>
     );
