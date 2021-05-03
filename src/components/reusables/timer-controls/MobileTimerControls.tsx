@@ -11,20 +11,8 @@ import io from "socket.io-client"
 const HOSTNAME = window.location.hostname
 let socket = io("http://" + HOSTNAME + ":3001");
 
-function pause() {
-  console.log("mobile-pause requested");
-  socket.emit("Invoked-MobilePause");
-}
 
-function play() {
-  console.log("mobile-play requested");
-  socket.emit("Invoked-MobilePlay");
-}
 
-function restart() {
-  console.log("mobile-restart requested");
-  socket.emit("Invoked-MobileRestart");
-}
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -42,19 +30,41 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 export default function MobileTimerControls() {
+
+  function socketPause() {
+    console.log("mobile pause requested");
+    socket.emit("pause");
+  }
+  
+  function socketPlay() {
+    console.log("mobile play requested");
+    socket.emit("play");
+  }
+  
+  function socketRestart() {
+    console.log("mobile restart requested");
+    socket.emit("restart");
+  }
+  
+  function socketStop() {
+    console.log("mobile stop requested");
+    socket.emit("stop");
+  }
+  
+
   const classes = useStyles();
   return (
     <div>
       <Grid container direction="column" alignItems="center">
         <Grid item>
           <div className={classes.root}>
-            <IconButton className="btn-play" onClick={play}>
+            <IconButton className="btn-play" onClick={socketPlay}>
               <PlayCircleFilled
                 fontSize="large"
                 color="primary">
               </PlayCircleFilled>
             </IconButton>
-            <IconButton className="btn-pause" onClick={pause}>
+            <IconButton className="btn-pause" onClick={socketPause}>
               <PauseCircleFilledRoundedIcon
                 fontSize="large"
                 color="primary">
@@ -64,13 +74,13 @@ export default function MobileTimerControls() {
         </Grid>
         <Grid item>
           <div className={classes.root2}>
-            <IconButton className="btn-stop" onClick={() => console.log("stop")}>
+            <IconButton className="btn-stop" onClick={socketStop}>
               <StopRoundedIcon
                 fontSize="large"
                 color="primary">
               </StopRoundedIcon>
             </IconButton>
-            <IconButton className="btn-restart" onClick={restart}>
+            <IconButton className="btn-restart" onClick={socketRestart}>
               <RedoRoundedIcon
                 fontSize="large"
                 color="primary">
