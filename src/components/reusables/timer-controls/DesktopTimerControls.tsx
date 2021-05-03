@@ -7,9 +7,9 @@ import StopRoundedIcon from '@material-ui/icons/StopRounded';
 import PauseCircleFilledRoundedIcon from '@material-ui/icons/PauseCircleFilledRounded';
 import RedoRoundedIcon from '@material-ui/icons/RedoRounded';
 import { Grid, Typography } from '@material-ui/core';
-import { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import io from "socket.io-client";
-
+import Timer from 'react-compound-timer';
 
 const HOSTNAME = window.location.hostname
 
@@ -53,20 +53,37 @@ export default function DesktopTimerControls() {
     socket.emit("Invoked-DesktopStop");
   }
 
+
   return (
     <div>
+      <Timer
+    initialTime={55000}
+    startImmediately={false}
+    direction="backward"
+>
+  {({ start, resume, pause, stop, reset, timerState }: any) => (
+    <React.Fragment>
+        <Typography 
+          variant="h2"
+          align="center">
+          <Timer.Minutes />
+          <Timer.Seconds /> 
+        </Typography>
+
       <Grid
         container
         spacing={0}
         justify="center">
         <ButtonGroup size='small'>
-          <IconButton onClick={socket_play}>
+          <IconButton onClick={() => {start() 
+                                    socket_play()}}> 
             <PlayCircleFilled
               fontSize="large"
               color="primary">
             </PlayCircleFilled>
           </IconButton>
-          <IconButton onClick={socket_pause}>
+          <IconButton onClick={() => {pause() 
+                                    socket_pause()}}>
             <PauseCircleFilledRoundedIcon
               fontSize="large"
               color="primary">
@@ -79,13 +96,15 @@ export default function DesktopTimerControls() {
         spacing={0}
         justify="center" >
         <ButtonGroup>
-          <IconButton onClick={socket_stop}>
+          <IconButton onClick={() => {stop() 
+                                    socket_stop() }}>
             <StopRoundedIcon
               fontSize="large"
               color="primary">
             </StopRoundedIcon>
           </IconButton>
-          <IconButton onClick={socket_restart}>
+          <IconButton onClick={() => {reset() 
+                                    socket_restart() }}>
             <RedoRoundedIcon
               fontSize="large"
               color="primary">
@@ -93,6 +112,9 @@ export default function DesktopTimerControls() {
           </IconButton>
         </ButtonGroup>
       </Grid>
+    </React.Fragment>
+    )}
+</Timer>   
     </div>
   );
 }
