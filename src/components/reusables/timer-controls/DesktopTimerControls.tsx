@@ -70,10 +70,9 @@ export default function DesktopTimerControls() {
             <Typography
               variant="h1"
               align="center">
-              <Timer.Minutes />
+              <Timer.Minutes />:
               <Timer.Seconds formatValue={(value: number) => value > 10 ? `${value}` : `0${value}`} />
             </Typography>
-
             <Grid
               container
               spacing={0}
