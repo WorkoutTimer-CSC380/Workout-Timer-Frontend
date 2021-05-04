@@ -11,6 +11,8 @@ import io from "socket.io-client";
 import RootRef from '@material-ui/core/RootRef';
 import Timer from "react-compound-timer";
 import { TimerControls } from "react-compound-timer";
+import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
+import classes from "*.module.css";
 
 const HOSTNAME = window.location.hostname
 
@@ -48,9 +50,24 @@ export default function DesktopTimerControls(props: Props) {
     });
   })
 
+  const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    root: {
+      '& > *': {
+        margin: theme.spacing(4),
+      },
+    },
+    root2: {
+      '& > *': {
+        margin: theme.spacing(3),
+      },
+    }
+  }),
+);
+
+const classes = useStyles();
   return (
     <div>
-
       <Timer
         initialTime={props.time}
         startImmediately={false}
@@ -70,8 +87,9 @@ export default function DesktopTimerControls(props: Props) {
               spacing={0}
               justify="center">
               <ButtonGroup size='small'>
+              <div className={classes.root}>
                 <RootRef rootRef={playButton}>
-                  <IconButton onClick={() => {
+                  <IconButton className="btn-play" onClick={() => {
                     start()
                   }}>
                     <PlayCircleFilled
@@ -81,7 +99,7 @@ export default function DesktopTimerControls(props: Props) {
                   </IconButton>
                 </RootRef>
                 <RootRef rootRef={pauseButton}>
-                  <IconButton onClick={() => {
+                  <IconButton className="btn-pause" onClick={() => {
                     pause()
                   }}>
                     <PauseCircleFilledRoundedIcon
@@ -90,15 +108,17 @@ export default function DesktopTimerControls(props: Props) {
                     </PauseCircleFilledRoundedIcon>
                   </IconButton>
                 </RootRef>
-              </ButtonGroup>
+                </div>
+              </ButtonGroup>             
             </Grid>
             <Grid
               container
               spacing={0}
               justify="center" >
               <ButtonGroup>
+              <div className={classes.root2}>
                 <RootRef rootRef={stopButton}>
-                  <IconButton onClick={() => {
+                  <IconButton className="btn-stop" onClick={() => {
                     stop()
                   }}>
                     <StopRoundedIcon
@@ -108,7 +128,7 @@ export default function DesktopTimerControls(props: Props) {
                   </IconButton>
                 </RootRef>
                 <RootRef rootRef={resetButton}>
-                  <IconButton onClick={() => {
+                  <IconButton className="btn-restart" onClick={() => {
                     reset()
                   }}>
                     <RedoRoundedIcon
@@ -117,7 +137,8 @@ export default function DesktopTimerControls(props: Props) {
                     </RedoRoundedIcon>
                   </IconButton>
                 </RootRef>
-              </ButtonGroup>
+                </div>
+              </ButtonGroup>          
             </Grid>
           </React.Fragment>
         )}
