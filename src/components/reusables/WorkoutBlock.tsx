@@ -5,7 +5,11 @@ import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import ButtonBase from '@material-ui/core/ButtonBase';
 import FitnessCenterIcon from '@material-ui/icons/FitnessCenter';
-import { Button } from '@material-ui/core';
+import { Button, IconButton } from '@material-ui/core';
+import DeleteIcon from '@material-ui/icons/Delete';
+import GetAppIcon from '@material-ui/icons/GetApp';
+import CloseIcon from '@material-ui/icons/Close';
+import Snackbar from '@material-ui/core/Snackbar';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -49,20 +53,86 @@ function deleteWorkout(workoutName: string) {
 }
 
 function loadWorkout(workoutName: string) {
-/*   fetch(
-    'http://localhost:3001/workouts/' + workoutName, {
-    method: 'DELETE', headers: {
-      'Content-type': 'application/json'
-    }
-  }) */
+  /*   fetch(
+      'http://localhost:3001/workouts/' + workoutName, {
+      method: 'DELETE', headers: {
+        'Content-type': 'application/json'
+      }
+    }) */
   console.log("Loadworkout: TODO")
 }
 
 
 export default function WorkoutBlock(props: Props) {
   const classes = useStyles();
+  const [openDelete, setOpenDelete] = React.useState(false);
+  const [openLoad, setOpenLoad] = React.useState(false);
+
+  const handleClickDelete = () => {
+    setOpenDelete(true);
+  };
+
+  const handleCloseDelete = (event: React.SyntheticEvent | React.MouseEvent, reason?: string) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    setOpenDelete(false);
+  };
+
+
+  const handleClickLoad = () => {
+    setOpenLoad(true);
+  };
+
+  const handleCloseLoad = (event: React.SyntheticEvent | React.MouseEvent, reason?: string) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    setOpenLoad(false);
+  };
+
+
   return (
     <div className={classes.root}>
+
+      <Snackbar
+        anchorOrigin={{
+          vertical: 'bottom',
+          horizontal: 'left',
+        }}
+        open={openDelete}
+        autoHideDuration={6000}
+        onClose={handleCloseDelete}
+        message={`${props.name} Deleted | Refresh to take effect.`}
+        action={
+          <React.Fragment>
+            <IconButton size="small" aria-label="close" color="inherit" onClick={handleCloseDelete}>
+              <CloseIcon fontSize="small" />
+            </IconButton>
+          </React.Fragment>
+        }
+      />
+
+      <Snackbar
+        anchorOrigin={{
+          vertical: 'bottom',
+          horizontal: 'left',
+        }}
+        open={openLoad}
+        autoHideDuration={6000}
+        onClose={handleCloseLoad}
+        message={`${props.name} Loaded`}
+        action={
+          <React.Fragment>
+            <IconButton size="small" aria-label="close" color="inherit" onClick={handleCloseLoad}>
+              <CloseIcon fontSize="small" />
+            </IconButton>
+          </React.Fragment>
+        }
+      />
+
       <Paper className={classes.paper}>
         <Grid container spacing={2}>
           <Grid item>
@@ -81,12 +151,18 @@ export default function WorkoutBlock(props: Props) {
                 </Typography>
               </Grid>
               <Grid item>
-                <Button variant="contained" color="primary" value={props.name} onClick={() => loadWorkout(props.name)}>
+                <Button variant="contained" color="primary" startIcon={<GetAppIcon />} value={props.name} onClick={() => {
+                  loadWorkout(props.name)
+                  handleClickLoad();
+                }}>
                   Load
                 </Button>
               </Grid>
               <Grid item>
-                <Button variant="contained" color="secondary" value={props.name} onClick={() => deleteWorkout(props.name)}>
+                <Button variant="contained" color="secondary" startIcon={<DeleteIcon />} value={props.name} onClick={() => {
+                  deleteWorkout(props.name);
+                  handleClickDelete();
+                }}>
                   Delete
                 </Button>
               </Grid>

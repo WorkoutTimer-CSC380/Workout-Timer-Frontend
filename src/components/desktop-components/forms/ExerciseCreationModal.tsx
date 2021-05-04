@@ -5,6 +5,7 @@ import ExerciseCreation from './ExerciseCreation';
 import { Button } from '@material-ui/core';
 import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
+import DirectionsRunIcon from '@material-ui/icons/DirectionsRun';
 
 function getModalStyle() {
   const top = 50
@@ -50,7 +51,7 @@ export default function ExerciseCreationModal() {
 
   return (
     <div>
-      <Button variant="contained" color="primary" onClick={handleOpen}>
+      <Button variant="contained" color="primary" startIcon={<DirectionsRunIcon />} onClick={handleOpen}>
         Create Exercise
       </Button>
       <Modal
@@ -62,11 +63,11 @@ export default function ExerciseCreationModal() {
           timeout: 500,
         }}
       >
-       
+
         <Fade in={open}>
-        <div style={modalStyle} className={classes.modal}>
-          <ExerciseCreation></ExerciseCreation>
-        </div>
+          <div style={modalStyle} className={classes.modal}>
+            <ExerciseCreation></ExerciseCreation>
+          </div>
         </Fade>
       </Modal>
 

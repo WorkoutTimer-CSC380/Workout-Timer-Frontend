@@ -7,6 +7,7 @@ import WorkoutCreation from './WorkoutCreation';
 import { Button } from '@material-ui/core';
 import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
+import FitnessCenterIcon from '@material-ui/icons/FitnessCenter';
 
 
 
@@ -54,7 +55,7 @@ export default function WorkoutCreationModal() {
 
   return (
     <div>
-      <Button variant="contained" color="primary" onClick={handleOpen}>
+      <Button variant="contained" color="primary" startIcon={<FitnessCenterIcon />} onClick={handleOpen}>
         Create Workout
       </Button>
       <Modal

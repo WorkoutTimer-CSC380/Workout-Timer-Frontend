@@ -5,6 +5,7 @@ import BreakCreation from './BreakCreation';
 import { Button } from '@material-ui/core';
 import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
+import FreeBreakfastIcon from '@material-ui/icons/FreeBreakfast';
 
 function getModalStyle() {
   const top = 50
@@ -50,7 +51,7 @@ export default function BreakCreationModal() {
 
   return (
     <div>
-      <Button variant="contained" color="primary" onClick={handleOpen}>
+      <Button variant="contained" color="primary" startIcon={<FreeBreakfastIcon/>} onClick={handleOpen}>
         Create Break
       </Button>
       <Modal

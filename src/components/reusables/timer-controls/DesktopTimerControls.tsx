@@ -12,7 +12,6 @@ import RootRef from '@material-ui/core/RootRef';
 import Timer from "react-compound-timer";
 import { TimerControls } from "react-compound-timer";
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
-import classes from "*.module.css";
 
 const HOSTNAME = window.location.hostname
 

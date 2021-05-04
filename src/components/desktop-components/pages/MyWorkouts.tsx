@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import ExerciseCreationButton from '../forms/ExerciseCreationModal';
 import WorkoutCreationButton from '../forms/WorkoutCreationModal';
-import { Grid,Typography } from '@material-ui/core';
+import { Grid, Typography } from '@material-ui/core';
 import BreakCreationButton from '../forms/BreakCreationModal';
 import WorkoutBlock from '../../reusables/WorkoutBlock';
 
@@ -13,6 +13,9 @@ const useStyles = makeStyles((theme: Theme) =>
     root: {
       padding: theme.spacing(2),
       flexGrow: 1,
+    },
+    btnFormat: {
+      padding: theme.spacing(2)
     },
   }),
 );
@@ -49,19 +52,30 @@ export default function MyWorkouts() {
 
   return (
     <div>
-      <Typography variant="h3">
+      <Typography align="center" variant="h3">
         My Workouts
       </Typography>
 
-      <div className={classes.root}>
-        <ExerciseCreationButton></ExerciseCreationButton>
-      </div>
-      <div className={classes.root}>
-        <BreakCreationButton></BreakCreationButton>
-      </div>
-      <div className={classes.root}>
-        <WorkoutCreationButton></WorkoutCreationButton>
-      </div>
+
+      <Grid
+        container
+        direction="row"
+        justify="center"
+        alignItems="center"
+      >
+        <div className={classes.btnFormat}>
+          <ExerciseCreationButton></ExerciseCreationButton>
+        </div>
+        <div className={classes.btnFormat}>
+          <BreakCreationButton></BreakCreationButton>
+        </div>
+        <div className={classes.btnFormat}>
+          <WorkoutCreationButton></WorkoutCreationButton>
+        </div>
+      </Grid>
+
+
+
 
       <div className={classes.root}>
         <Grid container spacing={1}>

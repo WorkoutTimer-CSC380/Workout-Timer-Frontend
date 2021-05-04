@@ -3,6 +3,7 @@ import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import { Grid, Typography } from "@material-ui/core";
 import RecentWorkoutBlock from '../../reusables/RecentWorkoutsBlock';
 
+
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
@@ -45,7 +46,7 @@ export default function RecentWorkouts() {
   return (
     <div>
       < div>
-        <Typography variant="h3">
+        <Typography align="center" variant="h3">
           Recent Workouts
        </Typography>
       </div>
