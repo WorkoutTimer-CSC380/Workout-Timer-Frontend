@@ -1,15 +1,13 @@
+/* eslint-disable no-lone-blocks */
 import IconButton from "@material-ui/core/IconButton";
 import ButtonGroup from "@material-ui/core/ButtonGroup"
 import PlayCircleFilled from "@material-ui/icons/PlayCircleFilled";
-import FastRewindRoundedIcon from "@material-ui/icons/FastRewindRounded";
-import FastForwardRoundedIcon from "@material-ui/icons/FastForwardRounded";
 import StopRoundedIcon from "@material-ui/icons/StopRounded";
 import PauseCircleFilledRoundedIcon from "@material-ui/icons/PauseCircleFilledRounded";
 import RedoRoundedIcon from "@material-ui/icons/RedoRounded";
 import { Grid, Typography } from "@material-ui/core";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef } from "react";
 import io from "socket.io-client";
-import ReactDOM from "react-dom";
 import RootRef from '@material-ui/core/RootRef';
 import Timer from "react-compound-timer";
 import { TimerControls } from "react-compound-timer";
@@ -22,7 +20,7 @@ type Props = {
   time: number
 }
 
-export default function DesktopTimerControls() {
+export default function DesktopTimerControls(props: Props) {
 
   const playButton = useRef<HTMLDivElement>(null)
   const stopButton = useRef<HTMLDivElement>(null)
@@ -54,7 +52,7 @@ export default function DesktopTimerControls() {
     <div>
 
       <Timer
-        initialTime={55000}
+        initialTime={props.time}
         startImmediately={false}
         direction="backward"
       >

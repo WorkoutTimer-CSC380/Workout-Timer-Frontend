@@ -1,4 +1,4 @@
-import { Button, Typography } from '@material-ui/core';
+import {Typography } from '@material-ui/core';
 import React from 'react';
 import TimerControls from '../../reusables/timer-controls/DesktopTimerControls';
 import WorkoutStepper from '../../reusables/WorkoutStepper';
@@ -20,7 +20,7 @@ export default function Home() {
         gutterBottom>
         Round
       </Typography>
-      <TimerControls></TimerControls>
+      <TimerControls time={55440}></TimerControls>
       <WorkoutStepper></WorkoutStepper>
     </div>
   );

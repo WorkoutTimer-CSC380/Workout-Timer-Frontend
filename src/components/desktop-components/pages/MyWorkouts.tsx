@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import ExerciseCreationButton from '../forms/ExerciseCreationModal';
 import WorkoutCreationButton from '../forms/WorkoutCreationModal';
-import { Button, Grid, Paper, Typography } from '@material-ui/core';
+import { Grid,Typography } from '@material-ui/core';
 import BreakCreationButton from '../forms/BreakCreationModal';
 import WorkoutBlock from '../../reusables/WorkoutBlock';
 

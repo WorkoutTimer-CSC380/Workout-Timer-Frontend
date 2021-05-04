@@ -46,13 +46,21 @@ const schema: JSONSchema7 = {
   }
 };
 
+const HOSTNAME = window.location.hostname
+
 export default function BreakCreation() {
   return (
     <div>
       <Form
         schema={schema}
         uiSchema={uiSchemea}
-        onSubmit={({ formData }) => console.log(JSON.stringify(formData, null, 2))}
+       // onSubmit={({ formData }) => console.log(JSON.stringify(formData, null, 2))}
+        onSubmit={({ formData }) => fetch(
+        "http://" + HOSTNAME + ":3001/exercises", {
+        method: 'POST',
+        headers: { 'Content-type': 'application/json' },
+        body: JSON.stringify(formData, null, 2)
+    })}  
       />
     </div>
   );

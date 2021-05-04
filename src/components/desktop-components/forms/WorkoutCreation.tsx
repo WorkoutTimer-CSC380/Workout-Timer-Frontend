@@ -3,7 +3,7 @@ import { UiSchema } from '@rjsf/core';
 import { withTheme } from '@rjsf/core';
 import { Theme as MuiTheme } from '@rjsf/material-ui';
 import React, { useState, useEffect } from 'react';
-import { Typography } from "@material-ui/core";
+
 
 
 const Form = withTheme(MuiTheme);
