@@ -5,6 +5,7 @@ import WorkoutCreationButton from '../forms/WorkoutCreationModal';
 import { Grid, Typography } from '@material-ui/core';
 import BreakCreationButton from '../forms/BreakCreationModal';
 import WorkoutBlock from '../../reusables/WorkoutBlock';
+import ManageWorkoutElementsModal from '../forms/ManageWorkoutElementsModal';
 
 
 
@@ -72,10 +73,10 @@ export default function MyWorkouts() {
         <div className={classes.btnFormat}>
           <WorkoutCreationButton></WorkoutCreationButton>
         </div>
+        <div className={classes.btnFormat}>
+          <ManageWorkoutElementsModal></ManageWorkoutElementsModal>
+        </div>
       </Grid>
-
-
-
 
       <div className={classes.root}>
         <Grid container spacing={1}>

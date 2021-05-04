@@ -42,6 +42,8 @@ type Props = {
 }
 
 
+const HOSTNAME = window.location.hostname
+
 function loadWorkout(workoutName: string) {
   /*   fetch(
       'http://localhost:3001/recents/' + workoutName, {

@@ -6,10 +6,9 @@ import Typography from '@material-ui/core/Typography';
 import ButtonBase from '@material-ui/core/ButtonBase';
 import FitnessCenterIcon from '@material-ui/icons/FitnessCenter';
 import { Button, IconButton } from '@material-ui/core';
-import DeleteIcon from '@material-ui/icons/Delete';
-import GetAppIcon from '@material-ui/icons/GetApp';
 import CloseIcon from '@material-ui/icons/Close';
 import Snackbar from '@material-ui/core/Snackbar';
+import DeleteIcon from '@material-ui/icons/Delete';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -44,9 +43,9 @@ type Props = {
 
 const HOSTNAME = window.location.hostname
 
-function deleteWorkout(workoutName: string) {
+function deleteElement(elementName: string) {
   fetch(
-    "http://" + HOSTNAME + ":3001/workouts/" + workoutName, {
+    "http://" + HOSTNAME + ":3001/exercises/" + elementName, {
     method: 'DELETE', headers: {
       'Content-type': 'application/json'
     }
@@ -54,81 +53,40 @@ function deleteWorkout(workoutName: string) {
 
 }
 
-function loadWorkout(workoutName: string) {
-  /*   fetch(
-      'http://localhost:3001/workouts/' + workoutName, {
-      method: 'DELETE', headers: {
-        'Content-type': 'application/json'
-      }
-    }) */
-  console.log("Loadworkout: TODO")
-}
 
-
-export default function WorkoutBlock(props: Props) {
+export default function WorkoutElementBlock(props: Props) {
   const classes = useStyles();
-  const [openDelete, setOpenDelete] = React.useState(false);
-  const [openLoad, setOpenLoad] = React.useState(false);
-
-  const handleClickDelete = () => {
-    setOpenDelete(true);
+  const [open, setOpen] = React.useState(false);
+  const handleClick = () => {
+    setOpen(true);
   };
 
-  const handleCloseDelete = (event: React.SyntheticEvent | React.MouseEvent, reason?: string) => {
+  const handleClose = (event: React.SyntheticEvent | React.MouseEvent, reason?: string) => {
     if (reason === 'clickaway') {
       return;
     }
 
-    setOpenDelete(false);
+    setOpen(false);
   };
 
-
-  const handleClickLoad = () => {
-    setOpenLoad(true);
-  };
-
-  const handleCloseLoad = (event: React.SyntheticEvent | React.MouseEvent, reason?: string) => {
-    if (reason === 'clickaway') {
-      return;
-    }
-
-    setOpenLoad(false);
-  };
 
 
   return (
     <div className={classes.root}>
 
-      <Snackbar
-        anchorOrigin={{
-          vertical: 'bottom',
-          horizontal: 'left',
-        }}
-        open={openDelete}
-        autoHideDuration={6000}
-        onClose={handleCloseDelete}
-        message={`${props.name} Deleted | Refresh to take effect.`}
-        action={
-          <React.Fragment>
-            <IconButton size="small" aria-label="close" color="inherit" onClick={handleCloseDelete}>
-              <CloseIcon fontSize="small" />
-            </IconButton>
-          </React.Fragment>
-        }
-      />
 
       <Snackbar
         anchorOrigin={{
           vertical: 'bottom',
           horizontal: 'left',
         }}
-        open={openLoad}
+        open={open}
         autoHideDuration={6000}
-        onClose={handleCloseLoad}
-        message={`${props.name} Loaded`}
+        onClose={handleClose}
+        message={`${props.name} Deleted | Reload Modal.`}
         action={
           <React.Fragment>
-            <IconButton size="small" aria-label="close" color="inherit" onClick={handleCloseLoad}>
+            <IconButton size="small" aria-label="close" color="inherit" onClick={handleClose}>
               <CloseIcon fontSize="small" />
             </IconButton>
           </React.Fragment>
@@ -147,23 +105,15 @@ export default function WorkoutBlock(props: Props) {
           </Grid>
           <Grid item xs={12} sm container>
             <Grid item xs container direction="column" spacing={2}>
-              <Grid item xs>
+              <Grid item>
                 <Typography gutterBottom variant="subtitle1">
                   Name: {props.name}
                 </Typography>
               </Grid>
               <Grid item>
-                <Button variant="contained" color="primary" startIcon={<GetAppIcon />} value={props.name} onClick={() => {
-                  loadWorkout(props.name)
-                  handleClickLoad();
-                }}>
-                  Load
-                </Button>
-              </Grid>
-              <Grid item>
                 <Button variant="contained" color="secondary" startIcon={<DeleteIcon />} value={props.name} onClick={() => {
-                  deleteWorkout(props.name);
-                  handleClickDelete();
+                  deleteElement(props.name);
+                  handleClick();
                 }}>
                   Delete
                 </Button>
