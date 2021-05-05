@@ -19,6 +19,7 @@ let socket = io("http://" + HOSTNAME + ":3001");
 
 type Props = {
   time: number
+  checkpoints: { time: number; callback: () => any; }[]
 }
 
 export default function DesktopTimerControls(props: Props) {
@@ -71,9 +72,9 @@ const classes = useStyles();
         initialTime={props.time}
         startImmediately={false}
         direction="backward"
+        checkpoints= {props.checkpoints}
       >
         {({ start, resume, pause, stop, reset, getTimerState }: TimerControls) => (
-
           <React.Fragment>
             <Typography
               variant="h1"

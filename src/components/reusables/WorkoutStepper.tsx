@@ -69,6 +69,7 @@ function ColorlibStepIcon(props: StepIconProps) {
     3: <VideoLabelIcon />,
   };
 
+
   return (
     <div
       className={clsx(classes.root, {
@@ -96,21 +97,10 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
-function getSteps() {
-  return ['Exercise Array Index 0', 'Exercise Array Index 1', 'Exercise Array Index 2'];
-}
 
-function getStepContent(step: number) {
-  switch (step) {
-    case 0:
-      return 'Exercise Array Index 0';
-    case 1:
-      return 'Exercise Array Index 1';
-    case 2:
-      return 'Exercise Array Index 2';
-    default:
-      return 'Unknown step';
-  }
+function getSteps() {
+  //fetch names in workout
+  return ['Exercise Array Index 0', 'Exercise Array Index 1', 'Exercise Array Index 2'];
 }
 
 export default function CustomizedSteppers() {
@@ -131,7 +121,7 @@ export default function CustomizedSteppers() {
   };
 
   return (
-    <div className={classes.root}> 
+    <div className={classes.root}>
       <Stepper alternativeLabel activeStep={activeStep} connector={<ColorlibConnector />}>
         {steps.map((label) => (
           <Step key={label}>
@@ -142,16 +132,13 @@ export default function CustomizedSteppers() {
       <div>
         {activeStep === steps.length ? (
           <div>
-            <Typography className={classes.instructions}>
-              All steps completed - you&apos;re finished
+            <Typography>
+              {/* Action Could be put here to activate upon finishing, like a event or something*/}
+              Something Finished
             </Typography>
-            <Button onClick={handleReset} className={classes.button}>
-              Reset
-            </Button>
           </div>
         ) : (
           <div>
-            <Typography className={classes.instructions}>{getStepContent(activeStep)}</Typography>
             <div>
               <Button disabled={activeStep === 0} onClick={handleBack} className={classes.button}>
                 Back
