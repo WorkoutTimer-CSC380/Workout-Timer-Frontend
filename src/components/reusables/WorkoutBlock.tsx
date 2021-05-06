@@ -10,6 +10,7 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import GetAppIcon from '@material-ui/icons/GetApp';
 import CloseIcon from '@material-ui/icons/Close';
 import Snackbar from '@material-ui/core/Snackbar';
+import {setTotalTime, setName, setExerciseArray} from '../desktop-components/pages/Home'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -42,6 +43,19 @@ type Props = {
   name: string;
 }
 
+//Sends the time that is loaded
+ function sendTime(data: number){
+   //Called from Home.tsx
+  setTotalTime(data)
+}
+
+//Sends the name that is loaded
+function sendExerciseName(data: string){
+  setName(data)
+}
+
+
+
 const HOSTNAME = window.location.hostname
 
 function deleteWorkout(workoutName: string) {
@@ -54,14 +68,50 @@ function deleteWorkout(workoutName: string) {
 
 }
 
-function loadWorkout(workoutName: string) {
-  /*   fetch(
-      'http://localhost:3001/workouts/' + workoutName, {
-      method: 'DELETE', headers: {
-        'Content-type': 'application/json'
+async function loadWorkout(workoutName: string) {
+  const fetchDataAsync = async () => {
+    const response = await fetch("http://" + HOSTNAME + ":3001/workouts/" + workoutName)
+    const data = await response.json()
+    var jsonArray: JSON[] = []
+
+    const elementArray: string[] = []
+
+    data.workoutElements.forEach((e: any) => {
+      console.log(e)
+      elementArray.push(e.element)
+    });
+
+    console.log("Contents of Workout:" + elementArray)
+    console.log("Number of elements:" + elementArray.length)
+    var netTime: number = 0
+    elementArray.forEach(e => {
+      const fetchLocalExercisesAsync = async () => {
+        console.log(e)
+        const response = await fetch("http://" + HOSTNAME + ":3001/exercises/" + e)
+        const data = await response.json()
+        console.log(data)
+ 
+        
+        console.log("Minutes:" + data.duration.minutes + " Seconds:" + data.duration.seconds)
+        console.log("Time in Mills For Element: " + (data.duration.minutes * 60000 + data.duration.seconds * 1000))
+        netTime += (data.duration.minutes * 60000 + data.duration.seconds * 1000)
+        sendTime(netTime)
+        sendExerciseName(data.name)
+        jsonArray.push(data)
+        setExerciseArray(jsonArray)
+        console.log("NetTime For Workout: " + netTime)
+        console.log(jsonArray)
+        // exerciseMap.set(data.name, data)
+        // setExerciseArray(exerciseMap)
+        // console.log(exerciseMap)
       }
-    }) */
-  console.log("Loadworkout: TODO")
+      fetchLocalExercisesAsync()
+    });
+    
+  }
+  
+  fetchDataAsync()
+ 
 }
 
 
