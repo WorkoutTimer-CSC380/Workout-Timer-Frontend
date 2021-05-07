@@ -49,10 +49,8 @@ function deleteElement(elementName: string) {
     method: 'DELETE', headers: {
       'Content-type': 'application/json'
     }
-  })
-
+  });
 }
-
 
 export default function WorkoutElementBlock(props: Props) {
   const classes = useStyles();
@@ -69,12 +67,8 @@ export default function WorkoutElementBlock(props: Props) {
     setOpen(false);
   };
 
-
-
   return (
     <div className={classes.root}>
-
-
       <Snackbar
         anchorOrigin={{
           vertical: 'bottom',

@@ -36,6 +36,9 @@ const schema: JSONSchema7 = {
       title: "Duration",
       description: "Enter a duration time",
       type: "object",
+      required: [
+        "minutes", "seconds"
+      ],
       properties: {
         minutes: {
           type: "integer",

@@ -11,9 +11,6 @@ import io from "socket.io-client"
 const HOSTNAME = window.location.hostname
 let socket = io("http://" + HOSTNAME + ":3001");
 
-
-
-
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
@@ -30,7 +27,6 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 export default function MobileTimerControls() {
-
   function socketPause() {
     console.log("mobile pause requested");
     socket.emit("pause");

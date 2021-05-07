@@ -80,7 +80,7 @@ const classes = useStyles();
               variant="h1"
               align="center">
               <Timer.Minutes />:
-              <Timer.Seconds formatValue={(value: number) => value > 10 ? `${value}` : `0${value}`} />
+              <Timer.Seconds formatValue={(value: number) => value >= 10 ? `${value}` : `0${value}`} />
             </Typography>
             <Grid
               container

@@ -1,112 +1,76 @@
-import { Typography } from '@material-ui/core';
-import { render } from '@testing-library/react';
-import React from 'react';
-import TimerControls from '../../reusables/timer-controls/DesktopTimerControls';
-import WorkoutStepper from '../../reusables/WorkoutStepper';
-import ReactDOM from 'react-dom';
-import { timeStamp } from 'node:console';
+import { Typography } from "@material-ui/core";
+import React, { useState, useEffect } from "react";
+import { Checkpoint } from "react-compound-timer";
 
+import TimerControls from "../../reusables/timer-controls/DesktopTimerControls";
+import WorkoutStepper from "../../reusables/WorkoutStepper";
+import { Duration, Workout } from "../../../types";
 
-function Someload(): { time: number; callback: () => any; }[] {
-  return [
-    {
-      time: 600000 - 5000,
-      callback: () => console.log("PlaceHolder")
-
-    }
-  ]
-}
-
-//Var instances for a loaded workout
-var time: number 
-var name: string
-var jsonArray: any
-var counter: number = 0
+let netTime: number;
+let workout: Workout | undefined = undefined;
 
 //Sets time from loaded workout
-export function setTotalTime(dataParam: number){
-  time = dataParam
+export function setTotalTime(dataParam: number) {
+  netTime = dataParam;
 }
 
-function getTotalTime(){
-  return(time)
+export function setWorkout(data: Workout) {
+  workout = data;
 }
 
-//Set array which contains json objects
-export function setExerciseArray(dataParam: any){
-  jsonArray = dataParam
-  
+function durationToMilli(dur: Duration): number {
+  return dur.minutes * 60000 + dur.seconds * 1000;
 }
-
-function getExerciseName(){
-  if(counter == 0){
-    name = jsonArray[counter].name 
-    counter++;
-  } else if(counter ==1){
-    name = jsonArray[counter].name
-    counter++;
-  }
-}
-
-
-//Sets name from loaded workout
-export function setName(dataParam: string){
-  
-  console.log(name) 
-}
-
-export function getName(){
-  if(name == null){
-    return("No Workout in Progress, select or create one in the My Workouts page")
-  } else{
-    name = jsonArray[counter].name 
-    return(name)
-  }
-} 
-
-function getExerciseTime(){
-  if(counter == 0){
-    time = jsonArray[counter].duration.minutes * 60000 + jsonArray[counter].duration.seconds * 1000
-    counter++;
-    return(time)
-  } else if(counter ==1){
-    time = jsonArray[counter].duration.minutes * 60000 + jsonArray[counter].duration.seconds * 1000
-    counter++;
-    return(time)
-  }
-}
-  
-
-
 
 export default function Home() {
+  const [name, setExerciseName] = React.useState("No Exercise is Loaded");
 
-  return (
-    <div>
-        <Typography
-        align="center"
-        variant="h5"
-        gutterBottom>
-        {getName()} 
-      </Typography>
+  useEffect(() => {
+    if (workout !== undefined) {
+      // console.log("workout.exercises: ", workout.exercises);
+      const first = workout.exercises.shift()!!;
+      // console.log("workout.exercises.shift(): ", first);
+      setExerciseName(first.name);
+      netTime -= durationToMilli(first.duration);
+    }
+  }, []);
 
-      <Typography
-        align="center"
-        variant="h5"
-        gutterBottom>
-        Round
-      </Typography>
-      <TimerControls time={getTotalTime()} checkpoints={[
-        {
-          time: getTotalTime() -5000, 
-          callback: () => getExerciseName()
+  function generateCheckpoints(): Checkpoint[] {
+    let netTimeCopy = netTime;
+    const checkpoints: Checkpoint[] = [];
+    for (let i = 0; i < workout!!.exercises.length; i++) {
+      const val = workout?.exercises[i];
+      checkpoints.push({
+        callback: () => {
+          setExerciseName(val!!.name);
         },
-        {
-          time: (getTotalTime() - 5000) - 5000,
-          callback: () => getExerciseName() 
-        }]}></TimerControls>
-      <WorkoutStepper></WorkoutStepper>
+        time: netTimeCopy,
+      });
+      netTimeCopy -= durationToMilli(val!!.duration);
+    }
+
+    return checkpoints;
+  }
+
+  const c = workout !== undefined ? generateCheckpoints() : [];
+
+  return workout !== undefined ? (
+    <div>
+      <Typography align="center" variant="h5" gutterBottom>
+        Workout: {workout.name}
+      </Typography>
+      <Typography align="center" variant="h5" gutterBottom>
+        Round: {name}
+      </Typography>
+
+      <TimerControls time={netTime} checkpoints={c}></TimerControls>
+    </div>
+  ) : (
+    <div>
+      <Typography align="center" variant="h5" gutterBottom>
+        Workout: {"No workout loaded"}
+      </Typography>
+      <TimerControls time={netTime} checkpoints={c}></TimerControls>
     </div>
   );
 }
-

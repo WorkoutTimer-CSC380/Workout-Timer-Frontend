@@ -1,16 +1,18 @@
-import React from 'react';
-import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
-import Grid from '@material-ui/core/Grid';
-import Paper from '@material-ui/core/Paper';
-import Typography from '@material-ui/core/Typography';
-import ButtonBase from '@material-ui/core/ButtonBase';
-import FitnessCenterIcon from '@material-ui/icons/FitnessCenter';
-import { Button, IconButton } from '@material-ui/core';
-import DeleteIcon from '@material-ui/icons/Delete';
-import GetAppIcon from '@material-ui/icons/GetApp';
-import CloseIcon from '@material-ui/icons/Close';
-import Snackbar from '@material-ui/core/Snackbar';
-import {setTotalTime, setName, setExerciseArray} from '../desktop-components/pages/Home'
+import React from "react";
+import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
+import Grid from "@material-ui/core/Grid";
+import Paper from "@material-ui/core/Paper";
+import Typography from "@material-ui/core/Typography";
+import ButtonBase from "@material-ui/core/ButtonBase";
+import FitnessCenterIcon from "@material-ui/icons/FitnessCenter";
+import { Button, IconButton } from "@material-ui/core";
+import DeleteIcon from "@material-ui/icons/Delete";
+import GetAppIcon from "@material-ui/icons/GetApp";
+import CloseIcon from "@material-ui/icons/Close";
+import Snackbar from "@material-ui/core/Snackbar";
+
+import { setWorkout, setTotalTime } from "../desktop-components/pages/Home";
+import { Exercise } from "../../types";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -19,7 +21,7 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     paper: {
       padding: theme.spacing(2),
-      margin: 'auto',
+      margin: "auto",
       maxWidth: 500,
     },
     image: {
@@ -27,93 +29,78 @@ const useStyles = makeStyles((theme: Theme) =>
       height: 128,
     },
     img: {
-      margin: 'auto',
-      display: 'block',
-      maxWidth: '100%',
-      maxHeight: '100%',
+      margin: "auto",
+      display: "block",
+      maxWidth: "100%",
+      maxHeight: "100%",
     },
     icon_size: {
-      scale: "100%"
-    }
-  }),
+      scale: "100%",
+    },
+  })
 );
-
 
 type Props = {
   name: string;
-}
+};
 
-//Sends the time that is loaded
- function sendTime(data: number){
-   //Called from Home.tsx
-  setTotalTime(data)
-}
-
-//Sends the name that is loaded
-function sendExerciseName(data: string){
-  setName(data)
-}
-
-
-
-const HOSTNAME = window.location.hostname
+const HOSTNAME = window.location.hostname;
 
 function deleteWorkout(workoutName: string) {
-  fetch(
-    "http://" + HOSTNAME + ":3001/workouts/" + workoutName, {
-    method: 'DELETE', headers: {
-      'Content-type': 'application/json'
-    }
-  })
-
+  fetch("http://" + HOSTNAME + ":3001/workouts/" + workoutName, {
+    method: "DELETE",
+    headers: {
+      "Content-type": "application/json",
+    },
+  });
 }
 
 async function loadWorkout(workoutName: string) {
-  const fetchDataAsync = async () => {
-    const response = await fetch("http://" + HOSTNAME + ":3001/workouts/" + workoutName)
-    const data = await response.json()
-    var jsonArray: JSON[] = []
+  type ExerciseNameWrapped = {
+    element: string;
+  };
 
-    const elementArray: string[] = []
+  type ReturnedWorkout = {
+    workoutElements: ExerciseNameWrapped[];
+  };
 
-    data.workoutElements.forEach((e: any) => {
-      console.log(e)
-      elementArray.push(e.element)
-    });
-
-    console.log("Contents of Workout:" + elementArray)
-    console.log("Number of elements:" + elementArray.length)
-    var netTime: number = 0
-    elementArray.forEach(e => {
-      const fetchLocalExercisesAsync = async () => {
-        console.log(e)
-        const response = await fetch("http://" + HOSTNAME + ":3001/exercises/" + e)
-        const data = await response.json()
-        console.log(data)
- 
-        
-        console.log("Minutes:" + data.duration.minutes + " Seconds:" + data.duration.seconds)
-        console.log("Time in Mills For Element: " + (data.duration.minutes * 60000 + data.duration.seconds * 1000))
-        netTime += (data.duration.minutes * 60000 + data.duration.seconds * 1000)
-        sendTime(netTime)
-        sendExerciseName(data.name)
-        jsonArray.push(data)
-        setExerciseArray(jsonArray)
-        console.log("NetTime For Workout: " + netTime)
-        console.log(jsonArray)
-        // exerciseMap.set(data.name, data)
-        // setExerciseArray(exerciseMap)
-        // console.log(exerciseMap)
-      }
-      fetchLocalExercisesAsync()
-    });
-    
-  }
+  fetch(`http://${HOSTNAME}:3001/recents/${workoutName}`)
   
-  fetchDataAsync()
- 
-}
+  const response = await fetch(
+    `http://${HOSTNAME}:3001/workouts/${workoutName}`
+  );
+  const workout = (await response.json()) as ReturnedWorkout;
+  const exerciseNames: string[] = [];
 
+  // console.log("workout: ", workout);
+  workout.workoutElements.forEach((e: ExerciseNameWrapped, i: number) => {
+    // console.log(`workoutElements[${i}]`, e);
+    exerciseNames.push(e.element);
+  });
+
+  // console.log("exerciseNames: ", exerciseNames);
+
+  const exercises: Exercise[] = [];
+  let netTime: number = 0;
+
+  for (let i = 0; i < exerciseNames.length; i++) {
+    const name = exerciseNames[i];
+    const res = await fetch(`http://${HOSTNAME}:3001/exercises/${name}`);
+    const exercise = await res.json() as Exercise;
+    netTime += exercise.duration.minutes * 60000 + exercise.duration.seconds * 1000;
+
+    console.log("Added exercise " + exercise.name);
+    exercises.push(exercise);
+  }
+
+  // console.log("netTime is " + netTime);
+  setTotalTime(netTime);
+
+  setWorkout({
+    name: workoutName,
+    exercises: exercises
+  });
+}
 
 export default function WorkoutBlock(props: Props) {
   const classes = useStyles();
@@ -124,35 +111,38 @@ export default function WorkoutBlock(props: Props) {
     setOpenDelete(true);
   };
 
-  const handleCloseDelete = (event: React.SyntheticEvent | React.MouseEvent, reason?: string) => {
-    if (reason === 'clickaway') {
+  const handleCloseDelete = (
+    event: React.SyntheticEvent | React.MouseEvent,
+    reason?: string
+  ) => {
+    if (reason === "clickaway") {
       return;
     }
 
     setOpenDelete(false);
   };
 
-
   const handleClickLoad = () => {
     setOpenLoad(true);
   };
 
-  const handleCloseLoad = (event: React.SyntheticEvent | React.MouseEvent, reason?: string) => {
-    if (reason === 'clickaway') {
+  const handleCloseLoad = (
+    event: React.SyntheticEvent | React.MouseEvent,
+    reason?: string
+  ) => {
+    if (reason === "clickaway") {
       return;
     }
 
     setOpenLoad(false);
   };
 
-
   return (
     <div className={classes.root}>
-
       <Snackbar
         anchorOrigin={{
-          vertical: 'bottom',
-          horizontal: 'left',
+          vertical: "bottom",
+          horizontal: "left",
         }}
         open={openDelete}
         autoHideDuration={6000}
@@ -160,7 +150,12 @@ export default function WorkoutBlock(props: Props) {
         message={`${props.name} Deleted | Refresh to take effect.`}
         action={
           <React.Fragment>
-            <IconButton size="small" aria-label="close" color="inherit" onClick={handleCloseDelete}>
+            <IconButton
+              size="small"
+              aria-label="close"
+              color="inherit"
+              onClick={handleCloseDelete}
+            >
               <CloseIcon fontSize="small" />
             </IconButton>
           </React.Fragment>
@@ -169,8 +164,8 @@ export default function WorkoutBlock(props: Props) {
 
       <Snackbar
         anchorOrigin={{
-          vertical: 'bottom',
-          horizontal: 'left',
+          vertical: "bottom",
+          horizontal: "left",
         }}
         open={openLoad}
         autoHideDuration={6000}
@@ -178,21 +173,25 @@ export default function WorkoutBlock(props: Props) {
         message={`${props.name} Loaded`}
         action={
           <React.Fragment>
-            <IconButton size="small" aria-label="close" color="inherit" onClick={handleCloseLoad}>
+            <IconButton
+              size="small"
+              aria-label="close"
+              color="inherit"
+              onClick={handleCloseLoad}
+            >
               <CloseIcon fontSize="small" />
             </IconButton>
           </React.Fragment>
         }
       />
-
       <Paper className={classes.paper}>
         <Grid container spacing={2}>
           <Grid item>
             <ButtonBase className={classes.image}>
               <FitnessCenterIcon
                 fontSize="large"
-                color="primary">
-              </FitnessCenterIcon>
+                color="primary"
+              ></FitnessCenterIcon>
             </ButtonBase>
           </Grid>
           <Grid item xs={12} sm container>
@@ -203,18 +202,30 @@ export default function WorkoutBlock(props: Props) {
                 </Typography>
               </Grid>
               <Grid item>
-                <Button variant="contained" color="primary" startIcon={<GetAppIcon />} value={props.name} onClick={() => {
-                  loadWorkout(props.name)
-                  handleClickLoad();
-                }}>
+                <Button
+                  variant="contained"
+                  color="primary"
+                  startIcon={<GetAppIcon />}
+                  value={props.name}
+                  onClick={() => {
+                    loadWorkout(props.name);
+                    handleClickLoad();
+                  }}
+                >
                   Load
                 </Button>
               </Grid>
               <Grid item>
-                <Button variant="contained" color="secondary" startIcon={<DeleteIcon />} value={props.name} onClick={() => {
-                  deleteWorkout(props.name);
-                  handleClickDelete();
-                }}>
+                <Button
+                  variant="contained"
+                  color="secondary"
+                  startIcon={<DeleteIcon />}
+                  value={props.name}
+                  onClick={() => {
+                    deleteWorkout(props.name);
+                    handleClickDelete();
+                  }}
+                >
                   Delete
                 </Button>
               </Grid>
