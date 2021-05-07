@@ -30,7 +30,7 @@ export default function Home() {
       // console.log("workout.exercises: ", workout.exercises);
       const first = workout.exercises.shift()!!;
       // console.log("workout.exercises.shift(): ", first);
-      setExerciseName(first.name);
+      setExerciseName(first.name + " | Sets:" + first.sets + " | Reps:" + first.reps);
       netTime -= durationToMilli(first.duration);
     }
   }, []);
@@ -42,7 +42,7 @@ export default function Home() {
       const val = workout?.exercises[i];
       checkpoints.push({
         callback: () => {
-          setExerciseName(val!!.name);
+          setExerciseName(val!!.name + " | Sets:" + val!!.sets + " | Reps:" +val!!.reps);
         },
         time: netTimeCopy,
       });
