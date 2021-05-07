@@ -56,10 +56,10 @@ export default function Home() {
 
   return workout !== undefined ? (
     <div>
-      <Typography align="center" variant="h5" gutterBottom>
+      <Typography align="center" variant="h2" gutterBottom>
         Workout: {workout.name}
       </Typography>
-      <Typography align="center" variant="h5" gutterBottom>
+      <Typography align="center" variant="h3" gutterBottom>
         Round: {name}
       </Typography>
 
@@ -67,7 +67,7 @@ export default function Home() {
     </div>
   ) : (
     <div>
-      <Typography align="center" variant="h5" gutterBottom>
+      <Typography align="center" variant="h2" gutterBottom>
         Workout: {"No workout loaded"}
       </Typography>
       <TimerControls time={netTime} checkpoints={c}></TimerControls>
